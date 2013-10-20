@@ -12,6 +12,10 @@ using System.Xml;
 
 namespace Theatre
 {
+    /// <summary>
+    /// Класс, который содержит в себе список фильмов на странице, номер страницы, 
+    /// количество страниц и количество фильмов.
+    /// </summary>
     public class Dictionary
     {
         public string Page;
@@ -204,6 +208,11 @@ namespace Theatre
             }
         }
 
+        /// <summary>
+        /// Создаёт и отправляет GET-запрос на сервер
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>Ответ от сервера в виде строки</returns>
         string CreateGetRequest(string path)
         {
             var request = System.Net.WebRequest.Create(url + path + api_key) as System.Net.HttpWebRequest;
@@ -222,6 +231,11 @@ namespace Theatre
             return responseContent;
         }
 
+        /// <summary>
+        /// Запрос популярных фильмов, разделеных по страницам
+        /// </summary>
+        /// <param name="onpage">Номер страницы</param>
+        /// <returns></returns>
         public Dictionary Top (string onpage = "1")
         {
             string str = CreateGetRequest("movie/top_rated?page="+onpage);
@@ -252,6 +266,11 @@ namespace Theatre
             return new Dictionary(Movies, page, total_pages, total_results);
         }
 
+        /// <summary>
+        /// Запрос ожидаемых в ближайшее время фильмов, разделеных по страницам
+        /// </summary>
+        /// <param name="onpage">Номер страницы</param>
+        /// <returns></returns>
         public Dictionary Upcoming (string onpage = "1")
         {
             string str = CreateGetRequest("movie/upcoming?page="+onpage);
@@ -287,6 +306,11 @@ namespace Theatre
             return new Dictionary(Movies, page, total_pages, total_results);
         }
 
+        /// <summary>
+        /// Запрос идущих в кинотеатрах фильмов, разделеных по страницам
+        /// </summary>
+        /// <param name="onpage">Номер страницы</param>
+        /// <returns></returns>
         public Dictionary NowPlaying (string onpage = "1")
         {
             string str = CreateGetRequest("movie/now_playing?page="+onpage);
@@ -322,6 +346,11 @@ namespace Theatre
             return new Dictionary(Movies, page, total_pages, total_results);
         }
 
+        /// <summary>
+        /// Осуществляет запрос по идентификатору фильма
+        /// </summary>
+        /// <param name="mov_id">Идентификатор фильма</param>
+        /// <returns>Данные о фильме</returns>
         public Movie MovieById(string mov_id)
         {
             string film = CreateGetRequest("movie/" + mov_id + "?");
@@ -383,6 +412,13 @@ namespace Theatre
                 release_date, revenue, runtime, spoken_languages, status, tagline, title, vote_average, vote_count);
         }
 
+        /// <summary>
+        /// Умный в гору не пойдёт, умный гору обойдёт.
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="begin"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         string GetData(ref string doc, string begin, string end)
         {
             if (doc[doc.IndexOf(begin) + begin.Length] == '\"') 
