@@ -8,13 +8,14 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace PhoneApp1
+namespace Theatre
 {
     public partial class Movies : PhoneApplicationPage
     {
         public Movies()
         {
             InitializeComponent();
+            Storage.Instance.NowPlaying();
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
-namespace PhoneApp1
+namespace Theatre
 {
     public partial class MainPage : PhoneApplicationPage
     {
@@ -19,6 +19,21 @@ namespace PhoneApp1
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void NowButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Now.xaml", UriKind.Relative));
+        }
+
+        private void TopButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Top.xaml", UriKind.Relative));
+        }
+
+        private void SoonButton_Click(object sender, RoutedEventArgs e)
+        {
+            //NavigationService.Navigate(new Uri("/.xaml", UriKind.Relative));
         }
     }
 }

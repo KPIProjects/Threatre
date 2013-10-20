@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage 
-    x:Class="PhoneApp1.MainPage"
+    x:Class="Theatre.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -25,10 +25,10 @@
 
         <!--ContentPanel — поместите здесь дополнительное содержимое-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button Content="TOP" HorizontalAlignment="Left" VerticalAlignment="Top" Height="484" Width="484" Margin="-13,-58,-13,0" FontSize="60" Background="Black" BorderBrush="White"/>
-            <Button Content="NOW" HorizontalAlignment="Left" Height="250" Margin="-12,412,0,0" VerticalAlignment="Top" Width="250"/>
+            <Button x:Name="TopButton" Content="TOP" HorizontalAlignment="Left" VerticalAlignment="Top" Height="484" Width="484" Margin="-13,-58,-13,0" FontSize="60" Background="Black" BorderBrush="White" Click="TopButton_Click"/>
+            <Button x:Name="NowButton" Content="NOW" HorizontalAlignment="Left" Height="250" Margin="-12,412,0,0" VerticalAlignment="Top" Width="250" Click="NowButton_Click"/>
             <Button Content="MORE" HorizontalAlignment="Left" Height="167" Margin="-12,648,-15,-92" VerticalAlignment="Top" Width="483"/>
-            <Button Content="SOON" HorizontalAlignment="Left" Height="250" Margin="221,412,-15,0" VerticalAlignment="Top" Width="250"/>
+            <Button x:Name="SoonButton" Content="SOON" HorizontalAlignment="Left" Height="250" Margin="221,412,-15,0" VerticalAlignment="Top" Width="250" Click="SoonButton_Click"/>
         </Grid>
     </Grid>
 
