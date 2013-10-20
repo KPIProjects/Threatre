@@ -15,6 +15,13 @@ namespace Theatre
         public Page1()
         {
             InitializeComponent();
+            Storage.Instance.GetTop("1");
+            Storage.Instance.TopChanged += UpdateViewWithData;
+        }
+
+        private void UpdateViewWithData(object sender, EventArgs e)
+        {
+            ;
         }
     }
 }

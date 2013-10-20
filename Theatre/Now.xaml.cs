@@ -15,7 +15,13 @@ namespace Theatre
         public Movies()
         {
             InitializeComponent();
-            Storage.Instance.NowPlaying();
+            Storage.Instance.GetNowPlaying("1");
+            Storage.Instance.NowPlayingChanged += UpdateViewWithData;
+        }
+
+        private void UpdateViewWithData(object sender, EventArgs e)
+        {
+            ;
         }
     }
 }
