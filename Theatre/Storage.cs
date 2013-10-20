@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Collections;
 using System.Net;
 using System.IO;
-using System.Net.Cache;
+//using System.Net;
 using System.Xml.Linq;
 using System.Xml;
 
@@ -21,10 +21,10 @@ namespace Theatre
         public string Page;
         public string Total_pages;
         public string Total_results;
-        public ArrayList Movies;
+        public List<Movie> Movies;
 
         public Dictionary() { }
-        public Dictionary(ArrayList movies, string page, string total_pages, string total_results)
+        public Dictionary(List<Movie> movies, string page, string total_pages, string total_results)
         {
             Movies = movies;
             Page = page;
@@ -68,7 +68,7 @@ namespace Theatre
         public string Backdrop_path;
         public string Collection;
         public string Budget;
-        public ArrayList Genres;
+        public List<Item> Genres;
         public string Homepage;
         public string Id;
         public string Id_imdb;
@@ -76,12 +76,12 @@ namespace Theatre
         public string Overview;
         public string Popularity;
         public string Poster_path;
-        public ArrayList Production_companies;
-        public ArrayList Production_countries;
+        public List<Item> Production_companies;
+        public List<Item> Production_countries;
         public string Release_date;
         public string Revenue;
         public string Runtime;
-        public ArrayList Spoken_languages;
+        public List<Item> Spoken_languages;
         public string Status;
         public string Tagline;
         public string Title;
@@ -91,11 +91,11 @@ namespace Theatre
         public Movie() { }
 
         public Movie(string adult = null, string backdrop_path = null, string collection = null,
-            string budget = null, ArrayList genres = null, string homepage = null, string id = null,
+            string budget = null, List<Item> genres = null, string homepage = null, string id = null,
             string id_imdb = null, string original_title = null, string overview = null, string popularity = null,
-            string poster_path = null, ArrayList production_companies = null, ArrayList production_countries = null,
+            string poster_path = null, List<Item> production_companies = null, List<Item> production_countries = null,
             string release_date = null, string revenue = null, string runtime = null,
-            ArrayList spoken_languages = null, string status = null, string tagline = null, string title = null,
+            List<Item> spoken_languages = null, string status = null, string tagline = null, string title = null,
             string vote_average = null, string vote_count = null)
         {
             Adult = adult;
@@ -213,13 +213,15 @@ namespace Theatre
         /// </summary>
         /// <param name="path"></param>
         /// <returns>Ответ от сервера в виде строки</returns>
-        string CreateGetRequest(string path)
+        void CreateGetRequest(string path)
         {
             var request = System.Net.WebRequest.Create(url + path + api_key) as System.Net.HttpWebRequest;
             request.Method = "GET";
             request.Accept = "application/json";
-            request.ContentLength = 0;
-            string responseContent;
+            request.BeginGetResponse(GetResponseCallback, request);
+
+            //request.ContentLength = 0;
+            /*
             using (var response = request.GetResponse() as System.Net.HttpWebResponse)
             {
                 using (var reader = new System.IO.StreamReader(response.GetResponseStream()))
@@ -228,8 +230,27 @@ namespace Theatre
                 }
             }
 
-            return responseContent;
+            return responseContent;*/
         }
+        private string responseContent;
+        private void GetResponseCallback(IAsyncResult asynchronousResult)
+        {
+            HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
+
+            // End the operation
+            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
+            Stream streamResponse = response.GetResponseStream();
+            StreamReader streamRead = new StreamReader(streamResponse);
+            this.responseContent = streamRead.ReadToEnd();
+
+
+            Console.WriteLine(responseContent);
+            // Close the stream object
+            streamResponse.Close();
+            streamRead.Close();
+            // Release the HttpWebResponse
+            response.Close();
+        }  
 
         /// <summary>
         /// Запрос популярных фильмов, разделеных по страницам
@@ -238,8 +259,13 @@ namespace Theatre
         /// <returns></returns>
         public Dictionary Top (string onpage = "1")
         {
-            string str = CreateGetRequest("movie/top_rated?page="+onpage);
-            ArrayList Movies = new ArrayList();
+            CreateGetRequest("movie/top_rated?page="+onpage);
+            string str;
+            do
+                str = this.responseContent;
+            while (str != "");
+            this.responseContent = "";
+            List<Movie> Movies = new List<Movie>();
 
             string page = GetData(ref str, "{\"page\":", ",\"results\":");
             while (str[1] != ']')
@@ -273,9 +299,14 @@ namespace Theatre
         /// <returns></returns>
         public Dictionary Upcoming (string onpage = "1")
         {
-            string str = CreateGetRequest("movie/upcoming?page="+onpage);
+            CreateGetRequest("movie/upcoming?page=" + onpage);
+            string str;
+            do
+                str = this.responseContent;
+            while (str != "");
+            this.responseContent = "";
 
-            ArrayList Movies = new ArrayList();
+            List<Movie> Movies = new List<Movie>();
 
             GetData(ref str, "{\"dates\"", ":");
             string min_date = GetData(ref str, "{\"minimum\":", ",");
@@ -313,9 +344,17 @@ namespace Theatre
         /// <returns></returns>
         public Dictionary NowPlaying (string onpage = "1")
         {
-            string str = CreateGetRequest("movie/now_playing?page="+onpage);
+            CreateGetRequest("movie/now_playing?page="+onpage);
+            string str = "";
+            do
+            {
+                str = this.responseContent;
+                Console.WriteLine(str);
+            }
+            while (str != "");
+            this.responseContent = "";
 
-            ArrayList Movies = new ArrayList();
+            List<Movie> Movies = new List<Movie>();
 
             GetData(ref str, "{\"dates\"", ":");
             string min_date = GetData(ref str, "{\"minimum\":", ",");
@@ -353,13 +392,15 @@ namespace Theatre
         /// <returns>Данные о фильме</returns>
         public Movie MovieById(string mov_id)
         {
-            string film = CreateGetRequest("movie/" + mov_id + "?");
+            CreateGetRequest("movie/" + mov_id + "?");
+            string film = this.responseContent;
+            this.responseContent = "";
 
             string adult = GetData(ref film, "{\"adult\":",",");
             string backdrop_path = GetData(ref film, "\"backdrop_path\":",",");
             string collection = GetData(ref film, "\"belongs_to_collection\":",",");
             string budget = GetData(ref film, "\"budget\":",",");
-            ArrayList genres = new ArrayList();
+            List<Item> genres = new List<Item>();
             GetData(ref film, "\"genres\"", ":");
             while (film[1] != ']')
             {
@@ -374,7 +415,7 @@ namespace Theatre
             string overview = GetData(ref film, "\"overview\":", ",");
             string popularity = GetData(ref film, "\"popularity\":", ",");
             string poster_path = GetData(ref film, "\"poster_path\":", ",");
-            ArrayList production_companies = new ArrayList();
+            List<Item> production_companies = new List<Item>();
             GetData(ref film, "\"production_companies\"", ":");
             while (film[1] != ']')
             {
@@ -382,7 +423,7 @@ namespace Theatre
                 if (film[1] == ',') film = film.Remove(1, 1);
             }
             GetData(ref film, "[", "],");
-            ArrayList production_countries = new ArrayList();
+            List<Item> production_countries = new List<Item>();
             GetData(ref film, "\"production_countries\"", ":");
             while (film[1] != ']')
             {
@@ -393,7 +434,7 @@ namespace Theatre
             string release_date = GetData(ref film, "\"release_date\":", ",");
             string revenue = GetData(ref film, "\"revenue\":", ",");
             string runtime = GetData(ref film, "\"runtime\":", ",");
-            ArrayList spoken_languages = new ArrayList();
+            List<Item> spoken_languages = new List<Item>();
             GetData(ref film, "\"spoken_languages\"", ":");
             while (film[1] != ']')
             {
