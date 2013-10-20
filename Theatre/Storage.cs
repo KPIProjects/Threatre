@@ -189,8 +189,8 @@ namespace Theatre
 
     public class Storage
     {
-        string url = "http://api.themoviedb.org/3/";
-        string api_key = "&api_key=094e4bb3d3ab45a67d695ba730de8393";
+        public string url = "http://api.themoviedb.org/3/";
+        public string api_key = "&api_key=094e4bb3d3ab45a67d695ba730de8393";
 
         private static Storage instance;
 
