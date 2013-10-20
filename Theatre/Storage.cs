@@ -208,64 +208,32 @@ namespace Theatre
             }
         }
 
-        /// <summary>
-        /// Создаёт и отправляет GET-запрос на сервер
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns>Ответ от сервера в виде строки</returns>
-        void CreateGetRequest(string path)
-        {
-            var request = System.Net.WebRequest.Create(url + path + api_key) as System.Net.HttpWebRequest;
-            request.Method = "GET";
-            request.Accept = "application/json";
-            request.BeginGetResponse(GetResponseCallback, request);
-
-            //request.ContentLength = 0;
-            /*
-            using (var response = request.GetResponse() as System.Net.HttpWebResponse)
-            {
-                using (var reader = new System.IO.StreamReader(response.GetResponseStream()))
-                {
-                    responseContent = reader.ReadToEnd();
-                }
-            }
-
-            return responseContent;*/
-        }
-        private string responseContent;
-        private void GetResponseCallback(IAsyncResult asynchronousResult)
-        {
-            HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
-
-            // End the operation
-            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
-            Stream streamResponse = response.GetResponseStream();
-            StreamReader streamRead = new StreamReader(streamResponse);
-            this.responseContent = streamRead.ReadToEnd();
-
-
-            Console.WriteLine(responseContent);
-            // Close the stream object
-            streamResponse.Close();
-            streamRead.Close();
-            // Release the HttpWebResponse
-            response.Close();
-        }  
 
         /// <summary>
         /// Запрос популярных фильмов, разделеных по страницам
         /// </summary>
         /// <param name="onpage">Номер страницы</param>
         /// <returns></returns>
-        public Dictionary Top (string onpage = "1")
+        public void GetTop(string onpage = "1")
         {
-            CreateGetRequest("movie/top_rated?page="+onpage);
-            string str;
-            do
-                str = this.responseContent;
-            while (str != "");
-            this.responseContent = "";
+            var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + api_key);
+            request.Method = "GET";
+            //request.KeepAlive = false; 
+            request.BeginGetResponse(result =>
+            {
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                Stream streamResponse = response.GetResponseStream();
+                StreamReader streamRead = new StreamReader(streamResponse);
+                String responseContent = streamRead.ReadToEnd();
+                GenerateTop(responseContent, onpage);
+            }, null);
+        }
+        public Dictionary Top;
+        public event EventHandler TopChanged;
+        private void GenerateTop(string response, string onpage)
+        {
             List<Movie> Movies = new List<Movie>();
+            string str = response;
 
             string page = GetData(ref str, "{\"page\":", ",\"results\":");
             while (str[1] != ']')
@@ -289,7 +257,8 @@ namespace Theatre
             string total_pages = GetData(ref str, "\"total_pages\":", ",");
             string total_results = GetData(ref str, "\"total_results\":", "}");
 
-            return new Dictionary(Movies, page, total_pages, total_results);
+            Top = new Dictionary(Movies, page, total_pages, total_results);
+            TopChanged.Invoke(null, null);
         }
 
         /// <summary>
@@ -297,15 +266,25 @@ namespace Theatre
         /// </summary>
         /// <param name="onpage">Номер страницы</param>
         /// <returns></returns>
-        public Dictionary Upcoming (string onpage = "1")
+        public void GetUpcoming(string onpage = "1")
         {
-            CreateGetRequest("movie/upcoming?page=" + onpage);
-            string str;
-            do
-                str = this.responseContent;
-            while (str != "");
-            this.responseContent = "";
-
+            var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + api_key);
+            request.Method = "GET";
+            //request.KeepAlive = false; 
+            request.BeginGetResponse(result =>
+            {
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                Stream streamResponse = response.GetResponseStream();
+                StreamReader streamRead = new StreamReader(streamResponse);
+                String responseContent = streamRead.ReadToEnd();
+                GenerateUpcoming(responseContent, onpage);
+            }, null);
+        }
+        public Dictionary Upcoming;
+        public event EventHandler UpcomingChanged;
+        private void GenerateUpcoming(string response, string onpage)
+        {
+            string str = response;
             List<Movie> Movies = new List<Movie>();
 
             GetData(ref str, "{\"dates\"", ":");
@@ -334,7 +313,9 @@ namespace Theatre
             string total_pages = GetData(ref str, "\"total_pages\":", ",");
             string total_results = GetData(ref str, "\"total_results\":", "}");
 
-            return new Dictionary(Movies, page, total_pages, total_results);
+            Upcoming = new Dictionary(Movies, page, total_pages, total_results);
+            UpcomingChanged.Invoke(null, null);
+
         }
 
         /// <summary>
@@ -342,17 +323,25 @@ namespace Theatre
         /// </summary>
         /// <param name="onpage">Номер страницы</param>
         /// <returns></returns>
-        public Dictionary NowPlaying (string onpage = "1")
+        public void GetNowPlaying(string onpage = "1")
         {
-            CreateGetRequest("movie/now_playing?page="+onpage);
-            string str = "";
-            do
+            var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + api_key);
+            request.Method = "GET";
+            //request.KeepAlive = false; 
+            request.BeginGetResponse(result =>
             {
-                str = this.responseContent;
-                Console.WriteLine(str);
-            }
-            while (str != "");
-            this.responseContent = "";
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                Stream streamResponse = response.GetResponseStream();
+                StreamReader streamRead = new StreamReader(streamResponse);
+                String responseContent = streamRead.ReadToEnd();
+                GenerateNowPlaying(responseContent, onpage);
+            }, null);
+        }
+        public Dictionary NowPlaying;
+        public event EventHandler NowPlayingChanged;
+        private void GenerateNowPlaying (string response, string onpage)
+        {
+            string str = response;
 
             List<Movie> Movies = new List<Movie>();
 
@@ -382,7 +371,8 @@ namespace Theatre
             string total_pages = GetData(ref str, "\"total_pages\":", ",");
             string total_results = GetData(ref str, "\"total_results\":", "}");
 
-            return new Dictionary(Movies, page, total_pages, total_results);
+            NowPlaying = new Dictionary(Movies, page, total_pages, total_results);
+            NowPlayingChanged.Invoke(null, null);
         }
 
         /// <summary>
@@ -390,12 +380,25 @@ namespace Theatre
         /// </summary>
         /// <param name="mov_id">Идентификатор фильма</param>
         /// <returns>Данные о фильме</returns>
-        public Movie MovieById(string mov_id)
+        public void GetMovieById(string mov_id)
         {
-            CreateGetRequest("movie/" + mov_id + "?");
-            string film = this.responseContent;
-            this.responseContent = "";
-
+            var request = WebRequest.CreateHttp(url + "movie/" + mov_id + api_key);
+            request.Method = "GET";
+            //request.KeepAlive = false; 
+            request.BeginGetResponse(result =>
+            {
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                Stream streamResponse = response.GetResponseStream();
+                StreamReader streamRead = new StreamReader(streamResponse);
+                String responseContent = streamRead.ReadToEnd();
+                GenerateMovieById(responseContent, mov_id);
+            }, null);
+        }
+        public Movie MovieById;
+        public event EventHandler MovieByIdChanged;
+        private void GenerateMovieById(string responseContent,string mov_id)
+        {
+            string film = responseContent;
             string adult = GetData(ref film, "{\"adult\":",",");
             string backdrop_path = GetData(ref film, "\"backdrop_path\":",",");
             string collection = GetData(ref film, "\"belongs_to_collection\":",",");
@@ -448,9 +451,10 @@ namespace Theatre
             string vote_average = GetData(ref film, "\"vote_average\":", ",");
             string vote_count = GetData(ref film, "\"vote_count\":", "}");
 
-            return new Movie(adult, backdrop_path, collection, budget, genres, homepage, id, id_imdb,
+            MovieById = new Movie(adult, backdrop_path, collection, budget, genres, homepage, id, id_imdb,
                 original_title, overview, popularity, poster_path, production_companies, production_countries,
                 release_date, revenue, runtime, spoken_languages, status, tagline, title, vote_average, vote_count);
+            MovieByIdChanged.Invoke(null,null);
         }
 
         /// <summary>
