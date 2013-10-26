@@ -7,9 +7,9 @@ namespace Theatre
     public class Item
     {
         [DataMember]
-        string id;
+        public string id;
 
         [DataMember]
-        string name;
+        public string name;
     }
 }
