@@ -10,7 +10,7 @@ namespace Theatre
     public class Storage
     {
         public string url = "http://api.themoviedb.org/3/";
-        public string api_key = "&api_key=094e4bb3d3ab45a67d695ba730de8393";
+        public string api_key = "api_key=094e4bb3d3ab45a67d695ba730de8393";
 
         private static Storage instance;
 
@@ -58,9 +58,8 @@ namespace Theatre
         /// <returns></returns>
         public void GetTop(string onpage = "1")
         {
-            var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + api_key);
+            var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + '&' + api_key);
             request.Method = "GET";
-            //request.KeepAlive = false; 
             request.BeginGetResponse(result =>
             {
                 HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
@@ -82,9 +81,8 @@ namespace Theatre
         /// <returns></returns>
         public void GetUpcoming(string onpage = "1")
         {
-            var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + api_key);
+            var request = WebRequest.CreateHttp(url + "movie/upcoming?page=" + onpage + '&' + api_key);
             request.Method = "GET";
-            //request.KeepAlive = false; 
             request.BeginGetResponse(result =>
             {
                 HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
@@ -106,7 +104,7 @@ namespace Theatre
         /// <returns></returns>
         public void GetNowPlaying(string onpage = "1")
         {
-            var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + api_key);
+            var request = WebRequest.CreateHttp(url + "movie/now_playing?page=" + onpage + '&' + api_key);
             request.Method = "GET";
             //request.KeepAlive = false; 
             request.BeginGetResponse(result =>
@@ -130,7 +128,7 @@ namespace Theatre
         /// <returns>Данные о фильме</returns>
         public void GetMovieById(string mov_id)
         {
-            var request = WebRequest.CreateHttp(url + "movie/" + mov_id + api_key);
+            var request = WebRequest.CreateHttp(url + "movie/" + mov_id + '?' + api_key);
             request.Method = "GET";
             //request.KeepAlive = false; 
             request.BeginGetResponse(result =>
