@@ -80,22 +80,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Storage\Dictionary.cs" />
+    <Compile Include="Storage\Item.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Now.xaml.cs">
+    <Compile Include="Storage\Movie.cs" />
+    <Compile Include="XAMLs\Now.xaml.cs">
       <DependentUpon>Now.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MoviePage.xaml.cs">
+    <Compile Include="XAMLs\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Storage.cs" />
-    <Compile Include="Store.cs" />
-    <Compile Include="Top.xaml.cs">
+    <Compile Include="Storage\Storage.cs" />
+    <Compile Include="XAMLs\Top.xaml.cs">
       <DependentUpon>Top.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Soon.xaml.cs">
+    <Compile Include="XAMLs\Soon.xaml.cs">
       <DependentUpon>Soon.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -108,19 +110,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Now.xaml">
+    <Page Include="XAMLs\Now.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MoviePage.xaml">
+    <Page Include="XAMLs\MoviePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Top.xaml">
+    <Page Include="XAMLs\Top.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Soon.xaml">
+    <Page Include="XAMLs\Soon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -7,16 +7,18 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.IO;
+using System.Windows.Media;
 
 namespace Theatre
 {
-    public partial class Now : PhoneApplicationPage
+    public partial class Top : PhoneApplicationPage
     {
-        public Now()
+        public Top()
         {
             InitializeComponent();
-            Storage.Instance.GetNowPlaying("1");
-            Storage.Instance.NowPlayingChanged += UpdateViewWithData;
+            Storage.Instance.GetTop("1");
+            Storage.Instance.TopChanged += UpdateViewWithData;
         }
         private Dictionary data;
         private void UpdateViewWithData(object sender, EventArgs e)
@@ -25,7 +27,7 @@ namespace Theatre
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 Movie1Label.Text = data.results[0].title;
-                Movie1Description.Text = "Release: " + data.results[0].release_date + "\n" + 
+                Movie1Description.Text = "Release: " + data.results[0].release_date + "\n" +
                                           "Rating: " + data.results[0].vote_average;
 
                 Movie2Label.Text = data.results[1].title;
@@ -55,23 +57,25 @@ namespace Theatre
 
         private void ContentPanel_1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[0].id, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + data.results[0].id, UriKind.Relative));
         }
         private void ContentPanel_2_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[1].id, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + data.results[1].id, UriKind.Relative));
         }
         private void ContentPanel_3_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[2].id, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + data.results[2].id, UriKind.Relative));
         }
         private void ContentPanel_4_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[3].id, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + data.results[3].id, UriKind.Relative));
         }
         private void ContentPanel_5_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[4].id, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + data.results[4].id, UriKind.Relative));
         }
+
+        
     }
 }
