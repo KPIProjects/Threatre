@@ -12,69 +12,70 @@ using System.Windows.Media;
 
 namespace Theatre
 {
-    public partial class Page1 : PhoneApplicationPage
+    public partial class Top : PhoneApplicationPage
     {
-        public Page1()
+        public Top()
         {
             InitializeComponent();
             Storage.Instance.GetTop("1");
             Storage.Instance.TopChanged += UpdateViewWithData;
         }
-
+        private Dictionary data;
         private void UpdateViewWithData(object sender, EventArgs e)
         {
-            Dictionary data = Storage.Instance.Top;
+            this.data = (Dictionary)sender;
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                Movie1Label.Text = data.Movies[0].Title + " (" + data.Movies[0].Release_date + ")";
-                Movie1Description.Text = "Rating: " + data.Movies[0].Vote_average;
+                Movie1Label.Text = data.results[0].title;
+                Movie1Description.Text = "Release: " + data.results[0].release_date + "\n" +
+                                          "Rating: " + data.results[0].vote_average;
 
-                Movie2Label.Text = data.Movies[1].Title + " (" + data.Movies[1].Release_date + ")";
-                Movie2Description.Text = "Rating: " + data.Movies[1].Vote_average;
+                Movie2Label.Text = data.results[1].title;
+                Movie2Description.Text = "Release: " + data.results[1].release_date + "\n" +
+                                          "Rating: " + data.results[1].vote_average;
 
-                Movie3Label.Text = data.Movies[2].Title + " (" + data.Movies[2].Release_date + ")";
-                Movie3Description.Text = "Rating: " + data.Movies[2].Vote_average;
+                Movie3Label.Text = data.results[2].title;
+                Movie3Description.Text = "Release: " + data.results[2].release_date + "\n" +
+                                          "Rating: " + data.results[2].vote_average;
 
-                Movie4Label.Text = data.Movies[3].Title + " (" + data.Movies[3].Release_date + ")";
-                Movie4Description.Text = "Rating: " + data.Movies[3].Vote_average;
+                Movie4Label.Text = data.results[3].title;
+                Movie4Description.Text = "Release: " + data.results[3].release_date + "\n" +
+                                          "Rating: " + data.results[3].vote_average;
 
-                Movie5Label.Text = data.Movies[4].Title + " (" + data.Movies[4].Release_date + ")";
-                Movie5Description.Text = "Rating: " + data.Movies[4].Vote_average;
+                Movie5Label.Text = data.results[4].title;
+                Movie5Description.Text = "Release: " + data.results[4].release_date + "\n" +
+                                          "Rating: " + data.results[4].vote_average;
 
+                ContentPanel_1.Tap += ContentPanel_1_Tap;
+                ContentPanel_2.Tap += ContentPanel_2_Tap;
+                ContentPanel_3.Tap += ContentPanel_3_Tap;
+                ContentPanel_4.Tap += ContentPanel_4_Tap;
+                ContentPanel_5.Tap += ContentPanel_5_Tap;
                 //UpdateImages();
             });
         }
 
-        private void UpdateImages()
+        private void ContentPanel_1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Dictionary data = Storage.Instance.Top;
-
-            var request = WebRequest.CreateHttp("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185"+data.Movies[0].Poster_path);
-            request.Method = "GET";
-            //request.KeepAlive = false; 
-            request.BeginGetResponse(result =>
-            {
-                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
-                Stream streamResponse = response.GetResponseStream();
-                BinaryReader streamRead = new BinaryReader(streamResponse);
-
-                FileStream writeStream = new FileStream("moviePicture1.png", FileMode.Create);
-                BinaryWriter writeBinary = new BinaryWriter(writeStream);
-
-                for (int i = 0; i < streamResponse.Length; i++)
-                {
-                    byte b = streamRead.ReadByte();
-                    writeBinary.Write(b);
-                }
-
-                streamResponse.Close();
-                streamRead.Close();
-                writeBinary.Close();
-                /*Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {*/
-                Movie1Image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("moviePicture1.png", UriKind.RelativeOrAbsolute));
-               /* });*/
-            }, null);
+            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[0].id, UriKind.Relative));
         }
+        private void ContentPanel_2_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[1].id, UriKind.Relative));
+        }
+        private void ContentPanel_3_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[2].id, UriKind.Relative));
+        }
+        private void ContentPanel_4_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[3].id, UriKind.Relative));
+        }
+        private void ContentPanel_5_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MoviePage.xaml?id=" + data.results[4].id, UriKind.Relative));
+        }
+
+        
     }
 }

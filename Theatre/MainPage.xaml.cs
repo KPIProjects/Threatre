@@ -33,7 +33,7 @@ namespace Theatre
 
         private void SoonButton_Click(object sender, RoutedEventArgs e)
         {
-            //NavigationService.Navigate(new Uri("/.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Soon.xaml", UriKind.Relative));
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="Theatre.Movies"
+    x:Class="Theatre.Now"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -26,39 +26,39 @@
         </StackPanel>
 
         <!--ContentPanel – поместите здесь дополнительное содержимое-->
-        <Grid x:Name="ContentPanel" Margin="12,0" Grid.Row="1">
-            <TextBlock HorizontalAlignment="Left" Height="55" Margin="134,0,0,0" TextWrapping="Wrap" Text="Movie name" VerticalAlignment="Top" Width="237" FontSize="40"/>
-            <TextBlock HorizontalAlignment="Left" Height="27" Margin="134,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312">
-            	<Run Text="Director: "/>
-            	<Run FontStyle="Italic" Text="Name Surname"/>
-            </TextBlock>
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="134,55,0,0" TextWrapping="Wrap" Text="Country: Name" VerticalAlignment="Top" Width="312"/>
+        <Grid x:Name="ContentPanel_1" Grid.Row="1" HorizontalAlignment="Left" Height="133" Margin="10,10,0,0" VerticalAlignment="Top" Width="460">
+            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="11" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
+            <Image x:Name="Movie1Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+            <TextBlock x:Name="Movie1Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="295" FontSize="25"/>
+            <TextBlock x:Name="Movie1Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
         </Grid>
-        <Image HorizontalAlignment="Left" Height="118" Margin="12,0,0,0" VerticalAlignment="Top" Width="118" Grid.Row="1"/>
-        <Grid x:Name="ContentPanel_Copy" Margin="14,160,10,-160" Grid.Row="1">
-            <TextBlock HorizontalAlignment="Left" Height="55" Margin="134,0,0,0" TextWrapping="Wrap" Text="Movie name" VerticalAlignment="Top" Width="237" FontSize="40"/>
-            <TextBlock HorizontalAlignment="Left" Height="27" Margin="134,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312">
-        		<Run Text="Director: "/>
-        		<Run FontStyle="Italic" Text="Name Surname"/>
-            </TextBlock>
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="134,55,0,0" TextWrapping="Wrap" Text="Country: Name" VerticalAlignment="Top" Width="312"/>
+        <Grid x:Name="ContentPanel_2" Grid.Row="2" HorizontalAlignment="Left" Height="133" Margin="10,143,0,0" VerticalAlignment="Top" Width="460">
+            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
+            <Image x:Name="Movie2Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+            <TextBlock x:Name="Movie2Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="295" FontSize="25"/>
+            <TextBlock x:Name="Movie2Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
         </Grid>
-        <Grid x:Name="ContentPanel_Copy1" Margin="14,320,10,-320" Grid.Row="1">
-            <TextBlock HorizontalAlignment="Left" Height="55" Margin="134,0,0,0" TextWrapping="Wrap" Text="Movie name" VerticalAlignment="Top" Width="237" FontSize="40"/>
-            <TextBlock HorizontalAlignment="Left" Height="27" Margin="134,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312">
-        		<Run Text="Director: "/>
-        		<Run FontStyle="Italic" Text="Name Surname"/>
-            </TextBlock>
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="134,55,0,0" TextWrapping="Wrap" Text="Country: Name" VerticalAlignment="Top" Width="312"/>
+        <Grid x:Name="ContentPanel_3" Grid.Row="3" HorizontalAlignment="Left" Height="133" Margin="10,276,0,0" VerticalAlignment="Top" Width="460">
+            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
+            <Image x:Name="Movie3Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+            <TextBlock x:Name="Movie3Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="301" FontSize="25"/>
+            <TextBlock x:Name="Movie3Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
         </Grid>
-        <Grid x:Name="ContentPanel_Copy2" Margin="14,480,10,-480" Grid.Row="1">
-            <TextBlock HorizontalAlignment="Left" Height="55" Margin="134,0,0,0" TextWrapping="Wrap" Text="Movie name" VerticalAlignment="Top" Width="237" FontSize="40"/>
-            <TextBlock HorizontalAlignment="Left" Height="27" Margin="134,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312">
-        		<Run Text="Director: "/>
-        		<Run FontStyle="Italic" Text="Name Surname"/>
-            </TextBlock>
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="134,55,0,0" TextWrapping="Wrap" Text="Country: Name" VerticalAlignment="Top" Width="312"/>
+        <Grid x:Name="ContentPanel_4" Grid.Row="4" HorizontalAlignment="Left" Height="133" Margin="10,409,0,0" VerticalAlignment="Top" Width="460">
+            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
+            <Image x:Name="Movie4Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+            <TextBlock x:Name="Movie4Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="295" FontSize="25"/>
+            <TextBlock x:Name="Movie4Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
         </Grid>
+        <Grid x:Name="ContentPanel_5" Grid.Row="5" HorizontalAlignment="Left" Height="133" Margin="10,542,0,-81" VerticalAlignment="Top" Width="460">
+            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
+            <Image x:Name="Movie5Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+            <TextBlock x:Name="Movie5Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="295" FontSize="25"/>
+            <TextBlock x:Name="Movie5Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
+        </Grid>
+
+
+
     </Grid>
 
 </phone:PhoneApplicationPage>
