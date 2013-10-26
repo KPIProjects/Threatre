@@ -17,6 +17,7 @@ namespace Theatre
         public Top()
         {
             InitializeComponent();
+            ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
             Storage.Instance.GetTop("1");
             Storage.Instance.TopChanged += UpdateViewWithData;
         }
@@ -51,6 +52,9 @@ namespace Theatre
                 ContentPanel_3.Tap += ContentPanel_3_Tap;
                 ContentPanel_4.Tap += ContentPanel_4_Tap;
                 ContentPanel_5.Tap += ContentPanel_5_Tap;
+
+                ContentPanel_Content.Visibility = Visibility.Visible; //VISIBLE!
+                ContentPanel_Loading.Visibility = Visibility.Collapsed; //HIDDEN!
                 //UpdateImages();
             });
 

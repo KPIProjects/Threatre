@@ -36,6 +36,7 @@ namespace Theatre
 
                         //Set image if you desire
                         Image.Source = bitmapImage;
+                        ContentPanel_Loading.Visibility = Visibility.Collapsed; //HIDDEN!
                     });
                 });
             }

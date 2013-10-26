@@ -22,8 +22,18 @@
 
         <!--TitlePanel содержит имя приложения и заголовок страницы-->
         <StackPanel Grid.Row="0" Margin="12,17,0,0"/>
-        <Image Name="Image" HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="480" Grid.RowSpan="2"/>
 
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Image Name="Image" HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="480" Grid.RowSpan="2"/>
+            <Grid x:Name="ContentPanel_Loading">
+                <ProgressBar HorizontalAlignment="Left" Height="17" Margin="10,359,0,0" VerticalAlignment="Top" Width="446" IsIndeterminate="True"/>
+                <TextBlock HorizontalAlignment="Left" Margin="196,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
+                	<Run Text="Loading"/>
+                	<LineBreak/>
+                	<Run/>
+                </TextBlock>
+            </Grid>
+        </Grid>
         <!--ContentPanel – поместите здесь дополнительное содержимое-->
     </Grid>
 

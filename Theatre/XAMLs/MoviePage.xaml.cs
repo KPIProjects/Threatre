@@ -16,6 +16,7 @@ namespace Theatre
         public MoviePage()
         {
             InitializeComponent();
+            ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -80,6 +81,8 @@ namespace Theatre
                 else
                     Budget.Text = "Budget: N/A";
 
+                ContentPanel_Content.Visibility = Visibility.Visible; //VISIBLE!
+                ContentPanel_Loading.Visibility = Visibility.Collapsed; //HIDDEN!
                 
             });
 
