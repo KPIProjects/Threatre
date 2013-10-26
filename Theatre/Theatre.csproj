@@ -81,6 +81,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage\Dictionary.cs" />
+    <Compile Include="Storage\GetImage.cs" />
     <Compile Include="Storage\Item.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -94,6 +95,9 @@
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage\Storage.cs" />
+    <Compile Include="XAMLs\PosterView.xaml.cs">
+      <DependentUpon>PosterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLs\Top.xaml.cs">
       <DependentUpon>Top.xaml</DependentUpon>
     </Compile>
@@ -117,6 +121,10 @@
     <Page Include="XAMLs\MoviePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLs\PosterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLs\Top.xaml">
       <Generator>MSBuild:Compile</Generator>

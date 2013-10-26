@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System.IO;
+
+namespace Theatre
+{
+    class GetImage
+    {
+        static public void GetExternalImageBytes(string url, Action<byte[]> callback)
+        {
+            byte[] data;
+            HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create(url);
+
+            myReq.BeginGetResponse(result =>
+            {
+                WebResponse response = myReq.EndGetResponse(result);
+
+                using (var stream = response.GetResponseStream())
+                {
+                    using (BinaryReader br = new BinaryReader(stream))
+                    {
+                        //i = (int)(stream.Length);
+                        data = br.ReadBytes(500000);
+                        br.Close();
+                    }
+                }
+                response.Close();
+
+                callback(data);
+            }, null);
+        }
+    }
+}

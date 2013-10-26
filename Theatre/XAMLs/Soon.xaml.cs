@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.IO;
 
 namespace Theatre
 {
@@ -50,6 +51,77 @@ namespace Theatre
                 ContentPanel_4.Tap += ContentPanel_4_Tap;
                 ContentPanel_5.Tap += ContentPanel_5_Tap;
                 //UpdateImages();
+            });
+
+            GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.results[0].poster_path, img =>
+            {
+
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    //Create image out of bytes
+                    System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    MemoryStream ms = new MemoryStream(img);
+                    bitmapImage.SetSource(ms);
+
+                    //Set image if you desire
+                    Movie1Image.Source = bitmapImage;
+                });
+            });
+            GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.results[1].poster_path, img =>
+            {
+
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    //Create image out of bytes
+                    System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    MemoryStream ms = new MemoryStream(img);
+                    bitmapImage.SetSource(ms);
+
+                    //Set image if you desire
+                    Movie2Image.Source = bitmapImage;
+                });
+            });
+            GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.results[2].poster_path, img =>
+            {
+
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    //Create image out of bytes
+                    System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    MemoryStream ms = new MemoryStream(img);
+                    bitmapImage.SetSource(ms);
+
+                    //Set image if you desire
+                    Movie3Image.Source = bitmapImage;
+                });
+            });
+            GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.results[3].poster_path, img =>
+            {
+
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    //Create image out of bytes
+                    System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    MemoryStream ms = new MemoryStream(img);
+                    bitmapImage.SetSource(ms);
+
+                    //Set image if you desire
+                    Movie4Image.Source = bitmapImage;
+                });
+            });
+            GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.results[4].poster_path, img =>
+            {
+
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    //Create image out of bytes
+                    System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    MemoryStream ms = new MemoryStream(img);
+                    bitmapImage.SetSource(ms);
+
+                    //Set image if you desire
+                    Movie5Image.Source = bitmapImage;
+                });
             });
         }
 

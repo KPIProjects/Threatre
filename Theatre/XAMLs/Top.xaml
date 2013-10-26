@@ -36,31 +36,31 @@
 
                     <Grid x:Name="ContentPanel_1" Grid.Row="1" HorizontalAlignment="Left" Height="133" Margin="10,10,0,0" VerticalAlignment="Top" Width="460">
                         <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="11" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
-                        <Image x:Name="Movie1Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+                        <Image x:Name="Movie1Image" HorizontalAlignment="Left" Margin="58,0,0,33" Width="81"/>
                         <TextBlock x:Name="Movie1Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="210" FontSize="25"/>
                         <TextBlock x:Name="Movie1Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
                     </Grid>
                     <Grid x:Name="ContentPanel_2" Grid.Row="2" HorizontalAlignment="Left" Height="133" Margin="10,143,0,0" VerticalAlignment="Top" Width="460">
                         <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
-                        <Image x:Name="Movie2Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+                        <Image x:Name="Movie2Image" HorizontalAlignment="Left" Margin="58,0,0,33" Width="81"/>
                         <TextBlock x:Name="Movie2Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="210" FontSize="25"/>
                         <TextBlock x:Name="Movie2Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
                     </Grid>
                     <Grid x:Name="ContentPanel_3" Grid.Row="3" HorizontalAlignment="Left" Height="133" Margin="10,276,0,0" VerticalAlignment="Top" Width="460">
                         <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
-                        <Image x:Name="Movie3Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+                        <Image x:Name="Movie3Image" HorizontalAlignment="Left" Margin="58,0,0,33" Width="81"/>
                         <TextBlock x:Name="Movie3Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="210" FontSize="25"/>
                         <TextBlock x:Name="Movie3Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
                     </Grid>
                     <Grid x:Name="ContentPanel_4" Grid.Row="4" HorizontalAlignment="Left" Height="133" Margin="10,409,0,0" VerticalAlignment="Top" Width="460">
                         <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
-                        <Image x:Name="Movie4Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+                        <Image x:Name="Movie4Image" HorizontalAlignment="Left" Margin="58,0,0,33" Width="81"/>
                         <TextBlock x:Name="Movie4Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="210" FontSize="25"/>
                         <TextBlock x:Name="Movie4Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
                     </Grid>
                     <Grid x:Name="ContentPanel_5" Grid.Row="5" HorizontalAlignment="Left" Height="133" Margin="10,542,0,-81" VerticalAlignment="Top" Width="460">
                         <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Height="56" Width="24" FontSize="40" RenderTransformOrigin="0.368,-0.239"/>
-                        <Image x:Name="Movie5Image" HorizontalAlignment="Left" Margin="39,0,0,33" Width="100"/>
+                        <Image x:Name="Movie5Image" HorizontalAlignment="Left" Margin="58,0,0,33" Width="81"/>
                         <TextBlock x:Name="Movie5Label" HorizontalAlignment="Left" Height="33" Margin="155,0,0,0" TextWrapping="Wrap" Text="Movie name (year)" VerticalAlignment="Top" Width="210" FontSize="25"/>
                         <TextBlock x:Name="Movie5Description" HorizontalAlignment="Left" Height="90" Margin="155,33,0,0" TextWrapping="Wrap" Text="Brief description" VerticalAlignment="Top" Width="301"/>
                     </Grid>
