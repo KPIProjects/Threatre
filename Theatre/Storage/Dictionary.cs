@@ -7,6 +7,7 @@ namespace Theatre
     /// Класс, который содержит в себе список фильмов на странице, номер страницы, 
     /// количество страниц и количество фильмов.
     /// </summary>
+    /// 
     [DataContract]
     public class Dictionary
     {
@@ -20,6 +21,6 @@ namespace Theatre
         public string total_results;
 
         [DataMember]
-        public List<Movie> results;
+        public List<ShortMovie> results;
     }
 }

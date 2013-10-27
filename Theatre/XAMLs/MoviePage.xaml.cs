@@ -59,7 +59,7 @@ namespace Theatre
                     Date.Text = "Release: N/A";
 
                 // Companies //
-
+                Director.Text = "";
                 if (data.production_companies.Count > 0)
                 {
                     for (int i = 0; i < data.production_companies.Count; i++)
