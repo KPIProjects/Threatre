@@ -86,7 +86,7 @@ namespace Theatre
                 
             });
 
-            GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.poster_path, 0, (img, idx) =>
+            GetImage.ThumbnailImageForMovieDBWithPath(data.poster_path, 0, (img, idx) =>
             {
 
                 Deployment.Current.Dispatcher.BeginInvoke(() =>

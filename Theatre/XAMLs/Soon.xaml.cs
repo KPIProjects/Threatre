@@ -20,14 +20,13 @@ namespace Theatre
             Storage.Instance.GetUpcoming("1");
             Storage.Instance.UpcomingChanged += UpdateViewWithData;
         }
-        private Dictionary data;
-        List<Header<ItemLL>> lst;
+        List<Header<ShortMovie>> lst;
         private void UpdateViewWithData(object sender, EventArgs e)
         {
-            this.data = (Dictionary)sender;
-            lst = new List<Header<ItemLL>>
+            Dictionary data = (Dictionary)sender;
+            lst = new List<Header<ShortMovie>>
             {
-                new Header<ItemLL>("Soon")
+                new Header<ShortMovie>("Soon")
             };
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -46,16 +45,11 @@ namespace Theatre
                                 bitmapImage.SetSource(ms);
 
                                 //Set image if you desire
-                                lst[0].Add(new ItemLL()
-                                {
-                                    Label = data.results[idx].title,
-                                    Description = "Release: " + data.results[idx].release_date + "\n" +
-                                        "Rating: " + data.results[idx].vote_average,
-                                    Number = (idx + 1).ToString(),
-                                    Image = bitmapImage,
-                                    index = idx,
-                                    release = data.results[idx].release_date
-                                });
+                                data.results[idx].Title = data.results[idx].title;
+                                data.results[idx].Thumbnail = bitmapImage;
+                                data.results[idx].ShortDescription = "Release: " + data.results[idx].release_date + "\n" +
+                                                                     "Rating: " + data.results[idx].vote_average;
+                                lst[0].Add(data.results[idx]);
                             }
                             completed++;
                             if (completed == data.results.Count)
@@ -78,8 +72,8 @@ namespace Theatre
 
         void LongList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ItemLL selected = (ItemLL)LongList.SelectedItem;
-            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + data.results[selected.index].id, UriKind.Relative));
+            ShortMovie selected = (ShortMovie)LongList.SelectedItem;
+            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + selected.id, UriKind.Relative));
         }
     }
 }

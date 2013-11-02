@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Windows.Media.Imaging;
 
 namespace Theatre
 {
@@ -35,6 +36,12 @@ namespace Theatre
 
         [DataMember]
         public string vote_count;
+
+        public string Title { get; set; }
+
+        public BitmapImage Thumbnail { get; set; }
+
+        public string ShortDescription { get; set; }
     }
 
     [DataContract]

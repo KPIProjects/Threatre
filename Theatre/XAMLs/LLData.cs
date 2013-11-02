@@ -6,30 +6,18 @@ using System.Windows.Media.Imaging;
 
 namespace Theatre
 {
-    public class ItemLL
+    public class ComparatorByRating : IComparer<ShortMovie>
     {
-        public string Label { get; set; }
-        public string Description { get; set; }
-        public string Number { get; set; }
-        public BitmapImage Image { get; set; }
-        public int index { get; set; }
-        public string rating { get; set; }
-        public string release { get; set; }
-        public string poster_path { get; set; }
-
-    }
-    public class ComparatorByRating : IComparer<ItemLL>
-    {
-        public int Compare(ItemLL x, ItemLL y)
+        public int Compare(ShortMovie x, ShortMovie y)
         {
-            return y.rating.CompareTo(x.rating);
+            return y.vote_average.CompareTo(x.vote_average);
         }
     }
-    public class ComparatorByReleaseDate : IComparer<ItemLL>
+    public class ComparatorByReleaseDate : IComparer<ShortMovie>
     {
-        public int Compare(ItemLL x, ItemLL y)
+        public int Compare(ShortMovie x, ShortMovie y)
         {
-            return x.release.CompareTo(y.release);
+            return x.release_date.CompareTo(y.release_date);
         }
     }
 
