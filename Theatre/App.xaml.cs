@@ -23,6 +23,7 @@ namespace Theatre
         /// <returns>Корневой кадр приложения телефона.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
+
         /// <summary>
         /// Конструктор объекта приложения.
         /// </summary>
@@ -114,15 +115,15 @@ namespace Theatre
             if (phoneApplicationInitialized)
                 return;
 
-            // Создайте кадр, но не задавайте для него значение RootVisual; это позволит
-            // экрану-заставке оставаться активным, пока приложение не будет готово для визуализации.
-            RootFrame = new PhoneApplicationFrame();
+            // Create the frame but don't set it as RootVisual yet; this allows the splash
+            // screen to remain active until the application is ready to render.
+            RootFrame = new TransitionFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
-            // Обработка сбоев навигации
+            // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
-            // Убедитесь, что инициализация не выполняется повторно
+            // Ensure we don't initialize again
             phoneApplicationInitialized = true;
         }
 
