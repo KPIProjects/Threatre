@@ -43,5 +43,15 @@ namespace Theatre
                 }
             }, null);
         }
+
+        static public void FullImageForMovieDBWithPath(string url, int idx, Action<byte[], int> callback)
+        {
+            GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w780" + url, idx, callback);
+        }
+
+        static public void ThumbnailImageForMovieDBWithPath(string url, int idx, Action<byte[], int> callback)
+        {
+            GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + url, idx, callback);
+        }
     }
 }

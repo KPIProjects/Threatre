@@ -36,7 +36,7 @@ namespace Theatre
                 int completed = 0;
                 for (int i = 0; i < data.results.Count; i++)
                 {
-                    GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.results[i].poster_path, i, (img, idx) =>
+                    GetImage.ThumbnailImageForMovieDBWithPath(data.results[i].poster_path, i, (img, idx) =>
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
@@ -49,7 +49,7 @@ namespace Theatre
                                 //Set image if you desire
                                 lst[0].Add(new ItemLL()
                                 {
-                                    Label = data.results[idx].original_title,
+                                    Label = data.results[idx].title,
                                     Description = "Release: " + data.results[idx].release_date + "\n" +
                                         "Rating: " + data.results[idx].vote_average,
                                     Number = (idx + 1).ToString(),
