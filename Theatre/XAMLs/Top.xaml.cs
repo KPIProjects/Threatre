@@ -22,18 +22,21 @@ namespace Theatre
             Storage.Instance.TopChanged += UpdateViewWithData;
         }
         private Dictionary data;
-        List<ItemLL> mainItem;
+        List<Header<ItemLL>> lst;
         private void UpdateViewWithData(object sender, EventArgs e)
         {
             this.data = (Dictionary)sender;
-            this.mainItem = new List<ItemLL>();
+            lst = new List<Header<ItemLL>>
+            {
+                new Header<ItemLL>("Top")
+            };
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
 
                 int completed = 0;
                 for (int i = 0; i < data.results.Count; i++)
                 {
-                    GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.results[i].poster_path, i, (img,idx) =>
+                    GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185" + data.results[i].poster_path, i, (img, idx) =>
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
@@ -44,7 +47,7 @@ namespace Theatre
                                 bitmapImage.SetSource(ms);
 
                                 //Set image if you desire
-                                mainItem.Add(new ItemLL()
+                                lst[0].Add(new ItemLL()
                                 {
                                     Label = data.results[idx].original_title,
                                     Description = "Release: " + data.results[idx].release_date + "\n" +
@@ -58,10 +61,9 @@ namespace Theatre
                             completed++;
                             if (completed == data.results.Count)
                             {
-                                ComparatorByRating cmp = new ComparatorByRating();
-                                mainItem.Sort(cmp);
-                                var selected = from c in mainItem group c by c.rating into n select new GroupingLayer<string, ItemLL>(n);
-                                LongList.ItemsSource = selected;
+                                lst[0].Sort(new ComparatorByRating());
+
+                                LongList.ItemsSource = lst;
                                 LongList.SelectionChanged += LongList_SelectionChanged;
 
 

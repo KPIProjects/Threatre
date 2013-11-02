@@ -21,15 +21,14 @@ namespace Theatre
             Storage.Instance.NowPlayingChanged += UpdateViewWithData;
         }
         private Dictionary data;
-        List<ItemLL> mainItem;
+        List<Header<ItemLL>> lst;
         private void UpdateViewWithData(object sender, EventArgs e)
         {
             this.data = (Dictionary)sender;
-            for (int i = 0; i < data.results.Count; i++)
+            lst = new List<Header<ItemLL>>
             {
-                if (data.results[i] == null) data.results.Remove(data.results[i]);
-            }
-            this.mainItem = new List<ItemLL>();
+                new Header<ItemLL>("Now")
+            };
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
 
@@ -48,7 +47,7 @@ namespace Theatre
                                 bitmapImage.SetSource(ms);
 
                                 //Set image if you desire
-                                mainItem.Add(new ItemLL()
+                                lst[0].Add(new ItemLL()
                                 {
                                     Label = data.results[idx].original_title,
                                     Description = "Release: " + data.results[idx].release_date + "\n" +
@@ -64,10 +63,9 @@ namespace Theatre
                             completed++;
                             if (completed == data.results.Count)
                             {
-                                ComparatorByRating cmp = new ComparatorByRating();
-                                mainItem.Sort(cmp);
-                                var selected = from c in mainItem group c by c.rating into n select new GroupingLayer<string, ItemLL>(n);
-                                LongList.ItemsSource = selected;
+                                lst[0].Sort(new ComparatorByRating());
+
+                                LongList.ItemsSource = lst;
                                 LongList.SelectionChanged += LongList_SelectionChanged;
 
 

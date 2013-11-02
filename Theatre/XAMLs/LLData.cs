@@ -15,7 +15,7 @@ namespace Theatre
         public int index { get; set; }
         public string rating { get; set; }
         public string release { get; set; }
-
+        public string poster_path { get; set; }
 
     }
     public class ComparatorByRating : IComparer<ItemLL>
@@ -58,4 +58,14 @@ namespace Theatre
             return grouping.GetEnumerator();
         }
     }
+
+    public class Header<T> : List<T>
+    {
+        public Header(string key)
+        {
+            this.Key = key;
+        }
+
+        public string Key { get; private set; }
+    } 
 }
