@@ -24,7 +24,7 @@ namespace Theatre
 
             if (NavigationContext.QueryString.ContainsKey("url"))
             {
-                GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w780" + NavigationContext.QueryString["url"].ToString(), img =>
+                GetImage.GetExternalImageBytes("http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w780" + NavigationContext.QueryString["url"].ToString(),0, (img,idx) =>
                 {
 
                     Deployment.Current.Dispatcher.BeginInvoke(() =>

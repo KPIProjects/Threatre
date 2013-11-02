@@ -7,6 +7,29 @@
 
     <!--Ресурсы приложения-->
     <Application.Resources>
+        <DataTemplate x:Key="GroupHeader">
+            <Border Background="{StaticResource PhoneAccentBrush}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+                <TextBlock Text="{Binding Key}"/>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="GroupItem">
+            <Border Background="{StaticResource PhoneAccentBrush}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+                <TextBlock Text="{Binding Key}" Style="{StaticResource PhoneTextLargeStyle}"/>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ListHeader">
+            <TextBlock Text="Header" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ItemTmpl">
+            <Grid  Grid.Row="1" HorizontalAlignment="Left" Height="133" Margin="10,10,0,0" VerticalAlignment="Top" Width="460">
+                <Image   Source="{Binding Image}" HorizontalAlignment="Left" Margin="10,0,0,33" Width="81"/>
+                <TextBlock Text="{Binding Label}" HorizontalAlignment="Left" Height="33" Margin="100,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" FontSize="25"/>
+                <TextBlock Text="{Binding Description}" x:Name="Movie1Description" HorizontalAlignment="Left" Height="90" Margin="100,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301"/>
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
