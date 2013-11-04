@@ -2670,7 +2670,7 @@ Shadow=0</a:DisplayPreferences>
 <o:DependencySymbol Id="o92">
 <a:CreationDate>1383583308</a:CreationDate>
 <a:ModificationDate>1383585331</a:ModificationDate>
-<a:Rect>((-29990,2508), (-4008,14334))</a:Rect>
+<a:Rect>((-29990,2508), (-3970,14334))</a:Rect>
 <a:ListOfPoints>((-29590,13012),(-6520,13012),(-6520,2908))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>8</a:ArrowStyle>
@@ -2712,7 +2712,7 @@ Shadow=0</a:DisplayPreferences>
 <o:DependencySymbol Id="o96">
 <a:CreationDate>1383583314</a:CreationDate>
 <a:ModificationDate>1383585331</a:ModificationDate>
-<a:Rect>((-30211,-7245), (-4557,609))</a:Rect>
+<a:Rect>((-30211,-7245), (-4519,609))</a:Rect>
 <a:ListOfPoints>((-29811,-5923),(-7069,-5923),(-7069,209))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>8</a:ArrowStyle>
