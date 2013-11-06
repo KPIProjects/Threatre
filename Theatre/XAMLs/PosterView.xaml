@@ -28,7 +28,7 @@
             <Grid x:Name="ContentPanel_Loading">
                 <ProgressBar HorizontalAlignment="Left" Height="17" Margin="10,359,0,0" VerticalAlignment="Top" Width="446" IsIndeterminate="True"/>
                 <TextBlock HorizontalAlignment="Left" Margin="196,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
-                	<Run Text="Loading"/>
+                	<Run Text="Загрузка"/>
                 	<LineBreak/>
                 	<Run/>
                 </TextBlock>

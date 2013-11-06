@@ -22,7 +22,7 @@
 
         <!--TitlePanel содержит имя приложения и заголовок страницы-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Name ="Title" Text="MOVIE" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontWeight="Bold"/>
+            <TextBlock Name ="Title" Text="ФИЛЬМ" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontWeight="Bold"/>
         </StackPanel>
 
         <!--ContentPanel – поместите здесь дополнительное содержимое-->
@@ -34,15 +34,15 @@
                     <TextBlock Name="Country" HorizontalAlignment="Left" Height="24" Margin="148,95,0,0" TextWrapping="Wrap" Text="Country: Name" VerticalAlignment="Top" Width="298"/>
                     <Image Name="Image" HorizontalAlignment="Left" Height="177" Margin="10,10,0,0" VerticalAlignment="Top" Width="119"/>
                     <TextBlock Name="Date" HorizontalAlignment="Left" Height="40" Margin="148,55,0,0" TextWrapping="Wrap" Text="Date (dd/mm/yy)" VerticalAlignment="Top" Width="298" FontSize="30"/>
-                    <TextBlock Name="Description" HorizontalAlignment="Left" Height="208" Margin="10,231,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Width="436"/>
-                    <TextBlock Name="Genre" HorizontalAlignment="Left" Margin="148,124,0,0" TextWrapping="Wrap" Text="Genre: Name" VerticalAlignment="Top" Width="298"/>
+                    <TextBlock Name="Description" HorizontalAlignment="Left" Height="311" Margin="10,231,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Width="436"/>
+                    <TextBlock Name="Genre" HorizontalAlignment="Left" Margin="148,124,0,0" TextWrapping="NoWrap"  Text="Genre: Name" VerticalAlignment="Top" Width="298"/>
                     <TextBlock Name="Budget" HorizontalAlignment="Left" Margin="148,156,0,0" TextWrapping="Wrap" Text="Budget: Value" VerticalAlignment="Top" Width="298"/>
                 </Grid>
 
                 <Grid x:Name="ContentPanel_Loading">
                     <ProgressBar HorizontalAlignment="Left" Height="17" Margin="10,276,0,0" VerticalAlignment="Top" Width="446" IsIndeterminate="True"/>
                 <TextBlock HorizontalAlignment="Left" Margin="187,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
-                	<Run Text="Loading"/>
+                	<Run Text="Загрузка"/>
                 	<LineBreak/>
                 	<Run/>
                 </TextBlock>

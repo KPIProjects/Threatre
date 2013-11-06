@@ -43,7 +43,7 @@
 
         <!--TitlePanel содержит имя приложения и заголовок страницы-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="NOW" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontWeight="Bold"/>
+            <TextBlock Text="В КИНО" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontWeight="Bold"/>
         </StackPanel>
 
         <!--ContentPanel – поместите здесь дополнительное содержимое-->
@@ -69,7 +69,7 @@
                     <Grid x:Name="ContentPanel_Loading">
                         <ProgressBar HorizontalAlignment="Left" Height="17" Margin="10,276,0,0" VerticalAlignment="Top" Width="446" IsIndeterminate="True"/>
                         <TextBlock HorizontalAlignment="Left" Margin="187,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
-							<Run Text="Loading"/>
+							<Run Text="Загрузка"/>
 							<LineBreak/>
 							<Run/>
                         </TextBlock>

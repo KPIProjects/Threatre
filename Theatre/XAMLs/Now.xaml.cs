@@ -46,10 +46,7 @@ namespace Theatre
                                 bitmapImage.SetSource(ms);
 
                                 //Set image if you desire
-                                data.results[idx].Title = data.results[idx].title;
                                 data.results[idx].Thumbnail = bitmapImage;
-                                data.results[idx].ShortDescription = "Release: " + data.results[idx].release_date + "\n" +
-                                                                     "Rating: " + data.results[idx].vote_average;
                                 lst[0].Add(data.results[idx]);
 
                             }

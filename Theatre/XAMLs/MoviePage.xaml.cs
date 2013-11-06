@@ -54,9 +54,9 @@ namespace Theatre
 
                 // Release date //
                 if (data.release_date != "")
-                    Date.Text = "Release: " + data.release_date;
+                    Date.Text = "Премьера: " + data.release_date;
                 else
-                    Date.Text = "Release: N/A";
+                    Date.Text = "Премьера: N/A";
 
                 // Companies //
                 Director.Text = "";
@@ -71,15 +71,15 @@ namespace Theatre
 
                 // Countries //
                 if (data.production_countries.Count > 0)
-                    Country.Text = "Country: " + data.production_countries[0].name;
+                    Country.Text = "Страна: " + data.production_countries[0].name;
                 else
-                    Country.Text = "Country: N/A";
+                    Country.Text = "Страна: N/A";
 
                 // Budget //
                 if (data.budget != "0")
-                    Budget.Text = "Budget: " + data.budget;
+                    Budget.Text = "Бюджет: " + data.budget;
                 else
-                    Budget.Text = "Budget: N/A";
+                    Budget.Text = "Бюджет: N/A";
 
                 ContentPanel_Content.Visibility = Visibility.Visible; //VISIBLE!
                 ContentPanel_Loading.Visibility = Visibility.Collapsed; //HIDDEN!

@@ -37,11 +37,13 @@ namespace Theatre
         [DataMember]
         public string vote_count;
 
-        public string Title { get; set; }
+        public string Title { get { return title; }}
 
         public BitmapImage Thumbnail { get; set; }
 
-        public string ShortDescription { get; set; }
+        public string ShortDescription { 
+            get { return "Премьера: " + release_date + "\n" + "Рейтинг: " + vote_average; }
+        }
     }
 
     [DataContract]
