@@ -17,13 +17,11 @@ namespace Theatre
         {
             InitializeComponent();
             ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
-            Storage.Instance.GetUpcoming("1");
-            Storage.Instance.UpcomingChanged += UpdateViewWithData;
+            Storage.Instance.GetUpcoming("1", UpdateViewWithData);
         }
         List<Header<ShortMovie>> lst;
-        private void UpdateViewWithData(object sender, EventArgs e)
+        private void UpdateViewWithData(Dictionary data)
         {
-            Dictionary data = (Dictionary)sender;
             lst = new List<Header<ShortMovie>>
             {
                 new Header<ShortMovie>("Soon")

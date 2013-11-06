@@ -49,14 +49,12 @@ namespace Theatre
         }
 
 
-        public Dictionary Top;
-        public event EventHandler TopChanged;
         /// <summary>
         /// Запрос популярных фильмов, разделеных по страницам
         /// </summary>
         /// <param name="onpage">Номер страницы</param>
         /// <returns></returns>
-        public void GetTop(string onpage = "1")
+        public void GetTop(string onpage = "1", Action<Dictionary> callback = null)
         {
             var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + '&' + api_key + "&language=ru");
             request.Method = "GET";
@@ -66,20 +64,17 @@ namespace Theatre
                 Stream streamResponse = response.GetResponseStream();
                 StreamReader streamRead = new StreamReader(streamResponse);
                 String responseContent = streamRead.ReadToEnd();
-                Top = ParsePage(responseContent);
-                TopChanged.Invoke(Top, null);
+                Dictionary Top = ParsePage(responseContent);
+                callback(Top);
             }, null);
         }
 
-
-        public Dictionary Upcoming;
-        public event EventHandler UpcomingChanged;
         /// <summary>
         /// Запрос ожидаемых в ближайшее время фильмов, разделеных по страницам
         /// </summary>
         /// <param name="onpage">Номер страницы</param>
         /// <returns></returns>
-        public void GetUpcoming(string onpage = "1")
+        public void GetUpcoming(string onpage = "1", Action<Dictionary> callback = null)
         {
             var request = WebRequest.CreateHttp(url + "movie/upcoming?page=" + onpage + '&' + api_key + "&language=ru");
             request.Method = "GET";
@@ -89,20 +84,17 @@ namespace Theatre
                 Stream streamResponse = response.GetResponseStream();
                 StreamReader streamRead = new StreamReader(streamResponse);
                 String responseContent = streamRead.ReadToEnd();
-                Upcoming = ParsePage(responseContent);
-                UpcomingChanged.Invoke(Upcoming, null);
+                Dictionary Upcoming = ParsePage(responseContent);
+                callback(Upcoming);
             }, null);
         }
 
-
-        public Dictionary NowPlaying;
-        public event EventHandler NowPlayingChanged;
         /// <summary>
         /// Запрос идущих в кинотеатрах фильмов, разделеных по страницам
         /// </summary>
         /// <param name="onpage">Номер страницы</param>
         /// <returns></returns>
-        public void GetNowPlaying(string onpage = "1")
+        public void GetNowPlaying(string onpage = "1", Action<Dictionary> callback = null)
         {
             var request = WebRequest.CreateHttp(url + "movie/now_playing?page=" + onpage + '&' + api_key +"&language=ru");
             request.Method = "GET";
@@ -113,20 +105,17 @@ namespace Theatre
                 Stream streamResponse = response.GetResponseStream();
                 StreamReader streamRead = new StreamReader(streamResponse);
                 String responseContent = streamRead.ReadToEnd();
-                NowPlaying = ParsePage(responseContent);
-                NowPlayingChanged.Invoke(NowPlaying, null);
+                Dictionary NowPlaying = ParsePage(responseContent);
+                callback(NowPlaying);
             }, null);
         }
 
-
-        public Movie MovieById;
-        public event EventHandler MovieByIdChanged;
         /// <summary>
         /// Осуществляет запрос по идентификатору фильма
         /// </summary>
         /// <param name="mov_id">Идентификатор фильма</param>
         /// <returns>Данные о фильме</returns>
-        public void GetMovieById(string mov_id)
+        public void GetMovieById(string mov_id, Action<Movie> callback = null)
         {
             var request = WebRequest.CreateHttp(url + "movie/" + mov_id + '?' + api_key + "&language=ru");
             request.Method = "GET";
@@ -137,8 +126,8 @@ namespace Theatre
                 Stream streamResponse = response.GetResponseStream();
                 StreamReader streamRead = new StreamReader(streamResponse);
                 String responseContent = streamRead.ReadToEnd();
-                MovieById = ParseMovie(responseContent);
-                MovieByIdChanged.Invoke(MovieById, null);
+                Movie MovieById = ParseMovie(responseContent);
+                callback(MovieById);
             }, null);
         }
     }

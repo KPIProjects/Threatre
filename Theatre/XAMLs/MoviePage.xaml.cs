@@ -24,15 +24,14 @@ namespace Theatre
 
             if (NavigationContext.QueryString.ContainsKey("id"))
             {
-                Storage.Instance.GetMovieById(NavigationContext.QueryString["id"].ToString());
-                Storage.Instance.MovieByIdChanged += UpdateViewWithData;
+                Storage.Instance.GetMovieById(NavigationContext.QueryString["id"].ToString(), UpdateViewWithData);
             }
         }
 
         private Movie data;
-        private void UpdateViewWithData(object sender, EventArgs e)
+        private void UpdateViewWithData(Movie data)
         {
-            this.data = (Movie)sender;
+            this.data = data;
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
