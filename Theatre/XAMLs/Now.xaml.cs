@@ -8,28 +8,32 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace Theatre
 {
     public partial class Now : PhoneApplicationPage
     {
+        private ObservableCollection<ObservableCollection<ShortMovie>> lst = new ObservableCollection<ObservableCollection<ShortMovie>>();
+        private int visiblePages = 1;
+        private bool canAddImages = false;
+
         public Now()
         {
             InitializeComponent();
             ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
+            LongList.ItemsSource = lst;
             Storage.Instance.GetNowPlaying("1", UpdateViewWithData);
         }
-        List<Header<ShortMovie>> lst;
+
         private void UpdateViewWithData(Dictionary data)
         {
-            lst = new List<Header<ShortMovie>>
-            {
-                new Header<ShortMovie>("Top")
-            };
-
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 int completed = 0;
+                List<ShortMovie> newMovies = new List<ShortMovie>();
+                lst.Add(new ObservableCollection<ShortMovie>());
+
                 for (int i = 0; i < data.results.Count; i++)
                 {
                     GetImage.ThumbnailImageForMovieDBWithPath(data.results[i].poster_path, i, (img, idx) =>
@@ -45,18 +49,22 @@ namespace Theatre
 
                                 //Set image if you desire
                                 data.results[idx].Thumbnail = bitmapImage;
-                                lst[0].Add(data.results[idx]);
-
+                                newMovies.Add(data.results[idx]);
                             }
 
                             completed++;
                             if (completed == data.results.Count)
                             {
-                                lst[0].Sort(new ComparatorByRating());
+                                newMovies.Sort(new ComparatorByRating());
 
-                                LongList.ItemsSource = lst;
-                                LongList.SelectionChanged += LongList_SelectionChanged;
+                                foreach (ShortMovie movie in newMovies)
+                                {
+                                    lst[visiblePages - 1].Add(movie);
+                                }
 
+                                LongList.Link += LongList_Link;
+                                LongList.Tap += LongList_Tap;
+                                canAddImages = true;
 
                                 ContentPanel_Content.Visibility = Visibility.Visible; //VISIBLE!
                                 ContentPanel_Loading.Visibility = Visibility.Collapsed; //HIDDEN!
@@ -67,11 +75,26 @@ namespace Theatre
             });
         }
 
-
-        void LongList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void LongList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             ShortMovie selected = (ShortMovie)LongList.SelectedItem;
             NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + selected.id, UriKind.Relative));
+        }
+
+
+
+        void LongList_Link(object sender, LinkUnlinkEventArgs e)
+        {
+            if (canAddImages)
+            {
+                ShortMovie item = (ShortMovie)e.ContentPresenter.Content;
+                if (item.id == lst[visiblePages - 1].Last().id)
+                {
+                    canAddImages = false;
+                    visiblePages++;
+                    Storage.Instance.GetNowPlaying(visiblePages.ToString(), UpdateViewWithData);
+                }
+            }
         }
     }
 }
