@@ -1,91 +1,139 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Windows.Media.Imaging;
+//using System.Windows.Media.Imaging;
 
 namespace Theatre
 {
-    [DataContract]
-    public class ShortMovie
+    class Movie
     {
-        [DataMember]
-        public string adult;
-
-        [DataMember]
-        public string backdrop_path;
-
-        [DataMember]
         public string id;
 
-        [DataMember]
-        public string original_title;
-
-        [DataMember]
-        public string release_date;
-
-        [DataMember]
-        public string popularity;
-
-        [DataMember]
-        public string poster_path;
-
-        [DataMember]
         public string title;
 
-        [DataMember]
-        public string vote_average;
+        public string url;
 
-        [DataMember]
-        public string vote_count;
+        public string image_url;
 
-        public string Title { get { return title; }}
+        public string countries;
 
-        public BitmapImage Thumbnail { get; set; }
+        public string actors;
 
-        public string ShortDescription { 
-            get { return "Премьера: " + release_date + "\n" + "Рейтинг: " + vote_average; }
-        }
-    }
+        public string director;
 
-    [DataContract]
-    public class Movie: ShortMovie
-    {
-        [DataMember]
-        public string collection;
+        public string comments_count;
 
-        [DataMember]
+        public string reviews_count;
+
+        public string trailers_count;
+
+        public string photos_count;
+
+        public string is3d;
+
+        public string cinema;
+
+        public string cinema_link;
+
+        /////// for NowMovie ///////
+        public string vote;
+
+        public string count_vote;
+
+        public string imdb;
+
+        public List<Session> sessions;
+        ////////////////////////////
+
+        ///// for UpcomingMovie ////
+        public string days_left;
+
+        public string release;
+
         public string budget;
+        ////////////////////////////
 
-        [DataMember]
-        public List<Item> genres;
+        //public BitmapImage Thumbnail { get; set; }
 
-        [DataMember]
-        public string homepage;
 
-        [DataMember]
-        public string imdb_id;
+        public Movie(NowMovie SomeMovie)
+        {
+            id = SomeMovie.id;
 
-        [DataMember]
-        public string overview;
+            title = SomeMovie.name;
 
-        [DataMember]
-        public List<Item> production_companies;
+            url = SomeMovie.url;
 
-        [DataMember]
-        public List<Item> production_countries;
+            image_url = SomeMovie.image;
 
-        [DataMember]
-        public string revenue;
+            countries = SomeMovie.countries;
 
-        [DataMember]
-        public string runtime;
+            actors = SomeMovie.actors;
 
-        [DataMember]
-        public List<Item> spoken_languages;
+            director = SomeMovie.rejisser;
 
-        [DataMember]
-        public string status;
+            comments_count = SomeMovie.comments_count;
 
-        [DataMember]
-        public string tagline;
+            reviews_count = SomeMovie.reviews_count;
+
+            trailers_count = SomeMovie.trailers_count;
+
+            photos_count = SomeMovie.photos_count;
+
+            is3d = SomeMovie.is3d;
+
+            cinema = SomeMovie.is_b;
+
+            cinema_link = SomeMovie.b_link;
+
+            vote = SomeMovie.vote;
+
+            count_vote = SomeMovie.count_vote;
+
+            imdb = SomeMovie.imdb;
+
+            sessions = new List<Session>();
+
+            foreach (Session Item in SomeMovie.sessions)
+            {
+                sessions.Add(Item);
+            }
+        }
+
+        public Movie(UpcomingMovie SomeMovie)
+        {
+            id = SomeMovie.id;
+
+            title = SomeMovie.name;
+
+            url = SomeMovie.url;
+
+            image_url = SomeMovie.image;
+
+            countries = SomeMovie.countries;
+
+            actors = SomeMovie.actors;
+
+            director = SomeMovie.rejisser;
+
+            comments_count = SomeMovie.comments_count;
+
+            reviews_count = SomeMovie.reviews_count;
+
+            trailers_count = SomeMovie.trailers_count;
+
+            photos_count = SomeMovie.photos_count;
+
+            is3d = SomeMovie.is3d;
+
+            cinema = SomeMovie.is_b;
+
+            cinema_link = SomeMovie.b_link;
+
+            days_left = SomeMovie.before;
+
+            release = SomeMovie.entered;
+
+            budget = SomeMovie.worldwide;
+        }
     }
 }

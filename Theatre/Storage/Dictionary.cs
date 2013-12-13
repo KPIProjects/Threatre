@@ -4,23 +4,22 @@ using System.Runtime.Serialization;
 namespace Theatre
 {
     /// <summary>
-    /// Класс, который содержит в себе список фильмов на странице, номер страницы, 
-    /// количество страниц и количество фильмов.
+    /// Класс, который содержит в себе успешность запроса, количество фильмов на странице,
+    /// список фильмов на странице, хеш.
     /// </summary>
-    /// 
     [DataContract]
-    public class Dictionary
+    public class Dictionary<T>
     {
         [DataMember]
-        public string page;
+        public string success;
 
         [DataMember]
-        public string total_pages;
+        public string count;
 
         [DataMember]
-        public string total_results;
+        public List<T> result;
 
         [DataMember]
-        public List<ShortMovie> results;
+        public string hash;
     }
 }
