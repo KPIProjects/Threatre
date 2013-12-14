@@ -249,7 +249,7 @@ namespace Theatre
         {
             if (html.IndexOf("<p>Премьера в Украине: <span>") == -1)
             {
-                Length = "N/A";
+                ReleaseDate = "N/A";
                 return;
             }
             string parsedDate = html.Replace("<p>Премьера в Украине: <span>", "\0").
