@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO;
+using System.ComponentModel;
 
 namespace Theatre
 {
@@ -40,10 +41,22 @@ namespace Theatre
             }
         }
 
+        protected override void OnBackKeyPress(CancelEventArgs e)
+        {
+            this.movie.LengthDidUpdated -= UpdateLength;
+            this.movie.DescriptionDidUpdated -= UpdateDescription;
+            this.movie.ReleaseDateDidUpdated -= UpdateReleaseDate;
+
+            base.OnBackKeyPress(e);
+        }
+
         private Movie movie;
         private void UpdateViewWithData(Movie movie)
         {
             this.movie = movie;
+            this.movie.LengthDidUpdated += UpdateLength;
+            this.movie.DescriptionDidUpdated += UpdateDescription;
+            this.movie.ReleaseDateDidUpdated += UpdateReleaseDate;
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -58,18 +71,13 @@ namespace Theatre
                 }
 
                 // Description //
-                //Description.Text = data.overview;
+                Description.Text = movie.Description;
 
                 // Release date //
-                if (movie.ReleaseDate != null)
-                    Date.Text = "Премьера: " + movie.ReleaseDate;
-                else
-                {
-                    if (movie.Rating != null)
-                    {
-                        Date.Text = "Рейтинг: " + movie.Rating;
-                    }
-                }
+                Date.Text = "Премьера: " + movie.ReleaseDate;
+
+                // Length
+                Length.Text = movie.Length;
 
                 // Companies //
                 Director.Text = "";
@@ -84,34 +92,28 @@ namespace Theatre
                     Country.Text = "Страна: " + movie.Countries[0];
                 else
                     Country.Text = "Страна: N/A";
-                /*
-                // Budget //
-                
-                */
+
                 Image.Source = movie.PosterThumbnail;
                 ContentPanel_Content.Visibility = Visibility.Visible; //VISIBLE!
                 ContentPanel_Loading.Visibility = Visibility.Collapsed; //HIDDEN!
                 
             });
-            /*
-            GetImage.GetExternalImageBytes(movie.PosterThumbnail, 0, (img, idx) =>
-            {
-
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    //Create image out of bytes
-                    System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
-                    MemoryStream ms = new MemoryStream(img);
-                    bitmapImage.SetSource(ms);
-
-                    //Set image if you desire
-                    Image.Source = bitmapImage;
-                    Image.Tap += Image_Tap;
-                });
-            });*/
-
         }
 
+        private void UpdateDescription(object sender, EventArgs e)
+        {
+            Description.Text = movie.Description;
+        }
+
+        private void UpdateReleaseDate(object sender, EventArgs e)
+        {
+            Date.Text = "Премьера: " + movie.ReleaseDate;
+        }
+
+        private void UpdateLength(object sender, EventArgs e)
+        {
+            Length.Text = movie.Length;
+        }
 
         private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {

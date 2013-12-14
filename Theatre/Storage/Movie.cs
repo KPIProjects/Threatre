@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Runtime.Serialization;
 //using System.Windows.Media.Imaging;
 
 namespace Theatre
 {
+    public enum MovieType { InCinema, Anounce };
     public class Movie
     {
         public string ID { get; set; }
@@ -24,6 +28,15 @@ namespace Theatre
         public string Is3d { get; set; }
         public string Cinema { get; set; }
         public string CinemaLink { get; set; }
+        public MovieType Type { get; set; }
+
+        ///////// from HTML ////////
+        public string Description { get; set; }
+        public string Length { get; set; }
+        public event EventHandler LengthDidUpdated;
+        public event EventHandler DescriptionDidUpdated;
+        public event EventHandler ReleaseDateDidUpdated;
+        ////////////////////////////
 
         /////// for NowMovie ///////
         public string Rating { get; set; }
@@ -38,10 +51,12 @@ namespace Theatre
         public string Budget  { get; set; }
         ////////////////////////////
 
+
         public string ShortDescription { get; set; }
 
         public Movie(NowMovie SomeMovie) : this((MovieForList)SomeMovie)
         {
+            Type = MovieType.InCinema;
             Rating = SomeMovie.vote;
             VoteCount = SomeMovie.count_vote;
             IMDB = SomeMovie.imdb;
@@ -56,6 +71,7 @@ namespace Theatre
 
         public Movie(UpcomingMovie SomeMovie) : this ((MovieForList)SomeMovie)
         {
+            Type = MovieType.Anounce;
             DaysForPremier = SomeMovie.before;
             ReleaseDate = SomeMovie.entered.Replace("<b>", "").Replace("</b>","");
             Budget = SomeMovie.worldwide;
@@ -110,6 +126,17 @@ namespace Theatre
             Is3d = SomeMovie.is3d;
             Cinema = SomeMovie.is_b;
             CinemaLink = SomeMovie.b_link;
+
+            var request = WebRequest.CreateHttp(Url);
+            request.Method = "GET";
+            request.BeginGetResponse(result =>
+            {
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                Stream streamResponse = response.GetResponseStream();
+                StreamReader streamRead = new StreamReader(streamResponse);
+                String responseContent = streamRead.ReadToEnd();
+                ParseMovieHTMLPage(responseContent);
+            }, null);
         }
 
         Dictionary<string, string> ParsePeopleString(string ToParse)
@@ -139,6 +166,97 @@ namespace Theatre
                 }
             }
             return dict;
+        }
+
+        void ParseMovieHTMLPage(string html)
+        {
+            string clearHTML = html.Replace("\n\t\t\t\t", "").
+                                    Replace("\t\t\t", "").
+                                    Replace("<p><span class=\"_reachbanner_\">", "").
+                                    Replace("<span class=\"hps\">", "").
+                                    Replace("<span id=\"result_box\" lang=\"ru\">", "").
+                                    Replace("&hellip;", "...").
+                                    Replace("&ndash;", " - ").
+                                    Replace("&mdash;", "-").
+                                    Replace("&amp;", "&").
+                                    Replace("&lt;;", "<").
+                                    Replace("&gt;", ">").
+                                    Replace("&laquo;", "«").
+                                    Replace("&raquo;", "»").
+                                    Replace("&amp;", "&").
+                                    Replace("&nbsp;", " ");
+            ParseDescriptionFromHTML(clearHTML);
+            ParseLengthFromHTML(clearHTML);
+            if (Type == MovieType.InCinema)
+            {
+                ParseReleaseDateFromHTML(clearHTML);
+            }
+
+        }
+
+        void ParseDescriptionFromHTML(string html)
+        {
+            string parseDescription = html.Replace("<div class=\"description\" itemprop=\"description\">", "\0").
+                                           Replace("</div> <!-- end description -->", "\0").
+                                           Replace("<p>", "").
+                                           Replace("</p>", "").
+                                           Replace("<br />", "\n").
+                                           Replace("</span>", "").
+                                           Split('\0')[1];
+
+            // Clear of span class tag //
+            int idx = -1;
+            do
+            {
+                idx = parseDescription.IndexOf("<span class=\"");
+                if (idx != -1)
+                {
+                    int lastidx = parseDescription.IndexOf("\">");
+                    parseDescription = parseDescription.Remove(idx, lastidx - idx + 2);
+                }
+            }
+            while (idx != -1);
+
+            // Clear of span title tag //
+            idx = -1;
+            do
+            {
+                idx = parseDescription.IndexOf("<span title=\"");
+                if (idx != -1)
+                {
+                    int lastidx = parseDescription.IndexOf("\">");
+                    parseDescription = parseDescription.Remove(idx, lastidx - idx + 2);
+                }
+            }
+            while (idx != -1);
+            Description = parseDescription;
+        }
+
+        void ParseLengthFromHTML(string html)
+        {
+            if (html.IndexOf("<p>Продолжительность: <span>") == -1)
+            {
+                Length = "N/A";
+                return;
+            }
+            string parsedLength = html.Replace("<p>Продолжительность: <span>", "\0").
+                                      Replace("</span><span itemprop=\"duration\"", "\0").Split('\0')[1];
+            Length = parsedLength;
+            ;
+        }
+
+        void ParseReleaseDateFromHTML(string html)
+        {
+            if (html.IndexOf("<p>Премьера в Украине: <span>") == -1)
+            {
+                Length = "N/A";
+                return;
+            }
+            string parsedDate = html.Replace("<p>Премьера в Украине: <span>", "\0").
+                                     Split('\0')[1].
+                                     Replace("</span></p>", "\0").Split('\0')[0];
+            ReleaseDate = parsedDate;
+            ;
         }
     }
 }
