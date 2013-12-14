@@ -4,136 +4,151 @@ using System.Runtime.Serialization;
 
 namespace Theatre
 {
-    class Movie
+    public class Movie
     {
-        public string id;
+        public string ID { get; set; }
 
-        public string title;
+        public string Title {get; set;}
 
-        public string url;
+        public string Url { get; set; }
 
-        public string image_url;
+        public System.Windows.Media.Imaging.BitmapImage PosterFullsize {get; set;}
 
-        public string countries;
+        public System.Windows.Media.Imaging.BitmapImage PosterThumbnail { get { return posterThumbnail; } set { posterThumbnail = value; } }
+        private System.Windows.Media.Imaging.BitmapImage posterThumbnail; 
 
-        public string actors;
+        public string PosterFullsizeURL { get; set; }
 
-        public string director;
+        public string PosterThumbnailURL { get; set; }
 
-        public string comments_count;
+        public string Countries { get; set; }
 
-        public string reviews_count;
+        public string Actors { get; set; }
 
-        public string trailers_count;
+        public string Director { get; set; }
 
-        public string photos_count;
+        public string CommentsCount { get; set; }
 
-        public string is3d;
+        public string ReviewsCount { get; set; }
 
-        public string cinema;
+        public string TrailersCount { get; set; }
 
-        public string cinema_link;
+        public string PhotosCount { get; set; }
+
+        public string Is3d { get; set; }
+
+        public string Cinema { get; set; }
+
+        public string CinemaLink { get; set; }
 
         /////// for NowMovie ///////
-        public string vote;
+        public string Rating { get; set; }
 
-        public string count_vote;
+        public string VoteCount { get; set; }
 
-        public string imdb;
+        public string IMDB { get; set; }
 
-        public List<Session> sessions;
+        public List<Session> Sessions;
         ////////////////////////////
 
         ///// for UpcomingMovie ////
-        public string days_left;
+        public string DaysForPremier  { get; set; }
 
-        public string release;
+        public string ReleaseDate { get; set; }
 
-        public string budget;
+        public string Budget  { get; set; }
         ////////////////////////////
 
-        //public BitmapImage Thumbnail { get; set; }
+        public string ShortDescription { get; set; }
 
 
         public Movie(NowMovie SomeMovie)
         {
-            id = SomeMovie.id;
+            ID = SomeMovie.id;
 
-            title = SomeMovie.name;
+            Title = SomeMovie.name;
 
-            url = SomeMovie.url;
+            Url = SomeMovie.url;
 
-            image_url = SomeMovie.image;
+            PosterThumbnailURL = "http://kinoafisha.ua/" +  SomeMovie.image;
 
-            countries = SomeMovie.countries;
+            PosterFullsizeURL = PosterThumbnailURL.Replace("/sm_", "/bp_");
 
-            actors = SomeMovie.actors;
+            Countries = SomeMovie.countries;
 
-            director = SomeMovie.rejisser;
+            Actors = SomeMovie.actors;
 
-            comments_count = SomeMovie.comments_count;
+            Director = SomeMovie.rejisser;
 
-            reviews_count = SomeMovie.reviews_count;
+            CommentsCount = SomeMovie.comments_count;
 
-            trailers_count = SomeMovie.trailers_count;
+            ReviewsCount = SomeMovie.reviews_count;
 
-            photos_count = SomeMovie.photos_count;
+            TrailersCount = SomeMovie.trailers_count;
 
-            is3d = SomeMovie.is3d;
+            PhotosCount = SomeMovie.photos_count;
 
-            cinema = SomeMovie.is_b;
+            Is3d = SomeMovie.is3d;
 
-            cinema_link = SomeMovie.b_link;
+            Cinema = SomeMovie.is_b;
 
-            vote = SomeMovie.vote;
+            CinemaLink = SomeMovie.b_link;
 
-            count_vote = SomeMovie.count_vote;
+            Rating = SomeMovie.vote;
 
-            imdb = SomeMovie.imdb;
+            VoteCount = SomeMovie.count_vote;
 
-            sessions = new List<Session>();
+            IMDB = SomeMovie.imdb;
+
+            Sessions = new List<Session>();
 
             foreach (Session Item in SomeMovie.sessions)
             {
-                sessions.Add(Item);
+                Sessions.Add(Item);
             }
+
+            ShortDescription = "Рейтинг: " + Rating;
         }
 
         public Movie(UpcomingMovie SomeMovie)
         {
-            id = SomeMovie.id;
+            ID = SomeMovie.id;
 
-            title = SomeMovie.name;
+            Title = SomeMovie.name;
 
-            url = SomeMovie.url;
+            Url = SomeMovie.url;
 
-            image_url = SomeMovie.image;
+            PosterThumbnailURL = "http://kinoafisha.ua/" + SomeMovie.image;
 
-            countries = SomeMovie.countries;
+            PosterFullsizeURL = PosterThumbnailURL.Replace("/sm_", "/bp_");
 
-            actors = SomeMovie.actors;
+            Countries = SomeMovie.countries;
 
-            director = SomeMovie.rejisser;
+            Actors = SomeMovie.actors;
 
-            comments_count = SomeMovie.comments_count;
+            Director = SomeMovie.rejisser;
 
-            reviews_count = SomeMovie.reviews_count;
+            CommentsCount = SomeMovie.comments_count;
 
-            trailers_count = SomeMovie.trailers_count;
+            ReviewsCount = SomeMovie.reviews_count;
 
-            photos_count = SomeMovie.photos_count;
+            TrailersCount = SomeMovie.trailers_count;
 
-            is3d = SomeMovie.is3d;
+            PhotosCount = SomeMovie.photos_count;
 
-            cinema = SomeMovie.is_b;
+            Is3d = SomeMovie.is3d;
 
-            cinema_link = SomeMovie.b_link;
+            Cinema = SomeMovie.is_b;
 
-            days_left = SomeMovie.before;
+            CinemaLink = SomeMovie.b_link;
 
-            release = SomeMovie.entered;
+            DaysForPremier = SomeMovie.before;
 
-            budget = SomeMovie.worldwide;
+            ReleaseDate = SomeMovie.entered;
+
+            Budget = SomeMovie.worldwide;
+
+            ShortDescription = "Релиз: " + ReleaseDate;
         }
     }
 }

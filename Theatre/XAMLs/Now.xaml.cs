@@ -14,7 +14,7 @@ namespace Theatre
 {
     public partial class Now : PhoneApplicationPage
     {
-        private ObservableCollection<ObservableCollection<ShortMovie>> lst = new ObservableCollection<ObservableCollection<ShortMovie>>();
+        private ObservableCollection<ObservableCollection<Movie>> lst = new ObservableCollection<ObservableCollection<Movie>>();
         private int visiblePages = 1;
         private bool canAddImages = false;
 
@@ -23,43 +23,39 @@ namespace Theatre
             InitializeComponent();
             ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
             LongList.ItemsSource = lst;
-            Storage.Instance.GetNowPlaying("1", UpdateViewWithData);
+            Storage.Instance.GetNowPlaying(1, UpdateViewWithData, "kiev", new DateTime(), "null");
         }
 
-        private void UpdateViewWithData(Dictionary data)
+        private void UpdateViewWithData(List<Movie> data)
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                int completed = 0;
-                List<ShortMovie> newMovies = new List<ShortMovie>();
-                lst.Add(new ObservableCollection<ShortMovie>());
+                int completed = (visiblePages - 1) * 10;
+                List<Movie> newMovies = new List<Movie>();
+                lst.Add(new ObservableCollection<Movie>());
 
-                for (int i = 0; i < data.results.Count; i++)
+                for (int i = (visiblePages-1) * 10; i < data.Count; i++)
                 {
-                    GetImage.ThumbnailImageForMovieDBWithPath(data.results[i].poster_path, i, (img, idx) =>
+                    GetImage.GetExternalImageBytes(data[i].PosterThumbnailURL, i, (img, idx) =>
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
-                            //Create image out of bytes
                             if (img != null)
                             {
-                                System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                                data[idx].PosterThumbnail = new System.Windows.Media.Imaging.BitmapImage();
                                 MemoryStream ms = new MemoryStream(img);
-                                bitmapImage.SetSource(ms);
-
-                                //Set image if you desire
-                                data.results[idx].Thumbnail = bitmapImage;
-                                newMovies.Add(data.results[idx]);
+                                data[idx].PosterThumbnail.SetSource(ms);
+                                newMovies.Add(data[idx]);
                             }
 
                             completed++;
-                            if (completed == data.results.Count)
+                            if (completed == data.Count)
                             {
                                 newMovies.Sort(new ComparatorByRating());
 
-                                foreach (ShortMovie movie in newMovies)
+                                for (int j = completed - 10; j < completed; j++)
                                 {
-                                    lst[visiblePages - 1].Add(movie);
+                                    lst[visiblePages - 1].Add(data[j]);
                                 }
 
                                 LongList.Link += LongList_Link;
@@ -77,22 +73,21 @@ namespace Theatre
 
         void LongList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            ShortMovie selected = (ShortMovie)LongList.SelectedItem;
-            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?id=" + selected.id, UriKind.Relative));
+            Movie selected = (Movie)LongList.SelectedItem;
+            int indx = Storage.Instance.NowMovies.IndexOf(selected);
+            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?idx=" + indx + "&type=now", UriKind.Relative));
         }
-
-
 
         void LongList_Link(object sender, LinkUnlinkEventArgs e)
         {
             if (canAddImages)
             {
-                ShortMovie item = (ShortMovie)e.ContentPresenter.Content;
-                if (item.id == lst[visiblePages - 1].Last().id)
+                Movie item = (Movie)e.ContentPresenter.Content;
+                if (item.ID == lst[visiblePages - 1].Last().ID)
                 {
                     canAddImages = false;
                     visiblePages++;
-                    Storage.Instance.GetNowPlaying(visiblePages.ToString(), UpdateViewWithData);
+                    Storage.Instance.GetNowPlaying(visiblePages, UpdateViewWithData, "kiev", new DateTime(), "null");
                 }
             }
         }

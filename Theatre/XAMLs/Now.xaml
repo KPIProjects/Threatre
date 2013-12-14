@@ -63,7 +63,7 @@
                             VerticalAlignment="Top" 
                             Width="460"
                             x:Name="LongList" 
-                            ItemTemplate="{StaticResource ItemTmpl}"/>
+                            ItemTemplate="{StaticResource MovieCellTemplate}"/>
 
                     </Grid>
                     <Grid x:Name="ContentPanel_Loading">

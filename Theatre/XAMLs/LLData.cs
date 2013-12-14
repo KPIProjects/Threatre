@@ -10,18 +10,18 @@ using System.Windows.Media.Imaging;
 
 namespace Theatre
 {
-    public class ComparatorByRating : IComparer<ShortMovie>
+    public class ComparatorByRating : IComparer<Movie>
     {
-        public int Compare(ShortMovie x, ShortMovie y)
+        public int Compare(Movie x, Movie y)
         {
-            return y.vote_average.CompareTo(x.vote_average);
+            return y.Rating.CompareTo(x.Rating);
         }
     }
-    public class ComparatorByReleaseDate : IComparer<ShortMovie>
+    public class ComparatorByReleaseDate : IComparer<Movie>
     {
-        public int Compare(ShortMovie x, ShortMovie y)
+        public int Compare(Movie x, Movie y)
         {
-            return x.release_date.CompareTo(y.release_date);
+            return x.ReleaseDate.CompareTo(y.ReleaseDate);
         }
     }
 

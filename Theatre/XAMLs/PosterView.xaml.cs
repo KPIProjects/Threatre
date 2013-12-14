@@ -24,7 +24,7 @@ namespace Theatre
 
             if (NavigationContext.QueryString.ContainsKey("url"))
             {
-                GetImage.FullImageForMovieDBWithPath(NavigationContext.QueryString["url"].ToString(),0, (img,idx) =>
+                GetImage.GetExternalImageBytes(NavigationContext.QueryString["url"].ToString(),0, (img,idx) =>
                 {
 
                     Deployment.Current.Dispatcher.BeginInvoke(() =>

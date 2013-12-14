@@ -26,11 +26,6 @@ namespace Theatre
             NavigationService.Navigate(new Uri("/XAMLs/Now.xaml", UriKind.Relative));
         }
 
-        private void TopButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/XAMLs/Top.xaml", UriKind.Relative));
-        }
-
         private void SoonButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/XAMLs/Soon.xaml", UriKind.Relative));

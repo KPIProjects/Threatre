@@ -71,56 +71,35 @@ namespace Theatre
 
             var request = WebRequest.CreateHttp(url + "/ajax/kinoafisha_load");
             request.Method = "POST";
-            //request.Credentials = CredentialCache.DefaultCredentials;
             UTF8Encoding encoding = new UTF8Encoding();
             var bytes = encoding.GetBytes("city=" + city + "&date=" + date.ToString() + "&kinoteatr=" + kinoteatr + 
-                "&offset=" + (onpage * 10 - 10).ToString() + "&limit=" + (onpage * 10).ToString());
+                "&offset=" + (onpage * 10 - 10).ToString() + "&limit=10");
 
             request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = bytes.Length;
-
-            using (var newStream = request.GetRequestStream())
-            {
-                newStream.Write(bytes, 0, bytes.Length);
-                newStream.Close();
-            }
-
-            request.BeginGetResponse(result =>
-            {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                Stream streamResponse = response.GetResponseStream();
-                StreamReader streamRead = new StreamReader(streamResponse);
-                String responseContent = streamRead.ReadToEnd();
-                Dictionary<NowMovie> NowPlaying = ParsePage<NowMovie>(responseContent);
-
-                foreach (NowMovie Item in NowPlaying.result)
+            request.BeginGetRequestStream((IAsyncResult asynchronousResult) =>
                 {
-                    NowMovies.Add(new Movie(Item));
-                }
+                    using (var postStream = request.EndGetRequestStream(asynchronousResult))
+                    {
+                        postStream.Write(bytes, 0, bytes.Length);
+                    }
+                    request.BeginGetResponse(result =>
+                    {
+                        HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                        Stream streamResponse = response.GetResponseStream();
+                        StreamReader streamRead = new StreamReader(streamResponse);
+                        String responseContent = streamRead.ReadToEnd();
+                        Dictionary<NowMovie> NowPlaying = ParsePage<NowMovie>(responseContent);
 
-                callback(NowMovies);
-            }, null);
+                        foreach (NowMovie Item in NowPlaying.result)
+                        {
+                            NowMovies.Add(new Movie(Item));
+                        }
+
+                        callback(NowMovies);
+                    }, null);
+                }, null);
+
         }
-        /*
-        /// <summary>
-        /// Запрос популярных фильмов, разделеных по страницам
-        /// </summary>
-        /// <param name="onpage">Номер страницы</param>
-        /// <returns></returns>
-        public void GetTop(string onpage = "1", Action<Dictionary> callback = null)
-        {
-            var request = WebRequest.CreateHttp(url + "movie/top_rated?page=" + onpage + '&' + api_key + "&language=ru");
-            request.Method = "GET";
-            request.BeginGetResponse(result =>
-            {
-                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
-                Stream streamResponse = response.GetResponseStream();
-                StreamReader streamRead = new StreamReader(streamResponse);
-                String responseContent = streamRead.ReadToEnd();
-                Dictionary Top = ParsePage(responseContent);
-                callback(Top);
-            }, null);
-        }*/
 
         /// <summary>
         /// Запрос ожидаемых в ближайшее время фильмов, разделеных по страницам
@@ -135,53 +114,31 @@ namespace Theatre
             request.Method = "POST";
             //request.Credentials = CredentialCache.DefaultCredentials;
             UTF8Encoding encoding = new UTF8Encoding();
-            var bytes = encoding.GetBytes("offset="+(onpage*10-10).ToString()+"&limit="+(onpage*10).ToString());
+            var bytes = encoding.GetBytes("offset="+(onpage*10-10).ToString()+"&limit=10");
 
             request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = bytes.Length;
-
-            using (var newStream = request.GetRequestStream())
+            request.BeginGetRequestStream((IAsyncResult asynchronousResult) =>
             {
-                newStream.Write(bytes, 0, bytes.Length);
-                newStream.Close();
-            }
-
-            request.BeginGetResponse(result =>
-            {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                Stream streamResponse = response.GetResponseStream();
-                StreamReader streamRead = new StreamReader(streamResponse);
-                String responseContent = streamRead.ReadToEnd();
-                Dictionary<UpcomingMovie> Upcoming = ParsePage<UpcomingMovie>(responseContent);
-
-                foreach (UpcomingMovie Item in Upcoming.result)
+                using (var postStream = request.EndGetRequestStream(asynchronousResult))
                 {
-                    NowMovies.Add(new Movie(Item));
+                    postStream.Write(bytes, 0, bytes.Length);
                 }
+                request.BeginGetResponse(result =>
+                {
+                    HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                    Stream streamResponse = response.GetResponseStream();
+                    StreamReader streamRead = new StreamReader(streamResponse);
+                    String responseContent = streamRead.ReadToEnd();
+                    Dictionary<UpcomingMovie> Anounces = ParsePage<UpcomingMovie>(responseContent);
 
-                callback(UpcomingMovies);
+                    foreach (UpcomingMovie Item in Anounces.result)
+                    {
+                        UpcomingMovies.Add(new Movie(Item));
+                    }
+
+                    callback(UpcomingMovies);
+                }, null);
             }, null);
         }
-        
-        /// <summary>
-        /// Осуществляет запрос по идентификатору фильма
-        /// </summary>
-        /// <param name="mov_url">Ссылка на фильм</param>
-        /// <returns>Данные о фильме</returns>
-        /*public void GetMovieByURL(string mov_url, Action<Movie> callback = null)
-        {
-            var request = WebRequest.CreateHttp(url + mov_url);
-            request.Method = "GET";
-            //request.KeepAlive = false;
-            request.BeginGetResponse(result =>
-            {
-                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
-                Stream streamResponse = response.GetResponseStream();
-                StreamReader streamRead = new StreamReader(streamResponse);
-                String responseContent = streamRead.ReadToEnd();
-                Movie MovieById = ParseMovie(responseContent);
-                callback(MovieById);
-            }, null);
-        }*/
     }
 }

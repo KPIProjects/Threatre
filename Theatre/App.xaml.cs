@@ -97,11 +97,11 @@ namespace Theatre
         // Код для выполнения на необработанных исключениях
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
-            if (System.Diagnostics.Debugger.IsAttached)
+            /*if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Произошло необработанное исключение; перейти в отладчик
                 System.Diagnostics.Debugger.Break();
-            }
+            }*/
         }
 
         #region Инициализация приложения телефона

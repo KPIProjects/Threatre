@@ -22,24 +22,36 @@ namespace Theatre
         {
             base.OnNavigatedTo(e);
 
-            if (NavigationContext.QueryString.ContainsKey("id"))
+            if (NavigationContext.QueryString.ContainsKey("idx") && NavigationContext.QueryString.ContainsKey("type"))
             {
-                Storage.Instance.GetMovieById(NavigationContext.QueryString["id"].ToString(), UpdateViewWithData);
+                int idx = 0;
+                int.TryParse(NavigationContext.QueryString["idx"].ToString(), out idx);
+                string type = NavigationContext.QueryString["type"].ToString();
+                Movie movie = null;
+                if (type == "now")
+                {
+                    movie = Storage.Instance.NowMovies[idx];
+                }
+                else if (type == "upcoming")
+                {
+                    movie = Storage.Instance.UpcomingMovies[idx];
+                }
+                UpdateViewWithData(movie);
             }
         }
 
-        private Movie data;
-        private void UpdateViewWithData(Movie data)
+        private Movie movie;
+        private void UpdateViewWithData(Movie movie)
         {
-            this.data = data;
+            this.movie = movie;
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                Original.Text = data.title;
-
+                Original.Text = movie.Title;
+                /*
                 // Genres //
                 Genre.Text = "";
-                if (data.genres.Count > 0)
+                if (data.actors.Count > 0)
                 {
                     for (int i = 0; i < data.genres.Count; i++)
                     {
@@ -79,13 +91,14 @@ namespace Theatre
                     Budget.Text = "Бюджет: " + data.budget;
                 else
                     Budget.Text = "Бюджет: N/A";
-
+                */
+                Image.Source = movie.PosterThumbnail;
                 ContentPanel_Content.Visibility = Visibility.Visible; //VISIBLE!
                 ContentPanel_Loading.Visibility = Visibility.Collapsed; //HIDDEN!
                 
             });
-
-            GetImage.ThumbnailImageForMovieDBWithPath(data.poster_path, 0, (img, idx) =>
+            /*
+            GetImage.GetExternalImageBytes(movie.PosterThumbnail, 0, (img, idx) =>
             {
 
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -99,14 +112,14 @@ namespace Theatre
                     Image.Source = bitmapImage;
                     Image.Tap += Image_Tap;
                 });
-            });
+            });*/
 
         }
 
 
         private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/XAMLs/PosterView.xaml?url=" + data.poster_path, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/XAMLs/PosterView.xaml?url=" + movie.PosterFullsizeURL, UriKind.Relative));
         }
         
 

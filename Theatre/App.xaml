@@ -23,9 +23,9 @@
             <TextBlock Text="Header" Style="{StaticResource PhoneTextTitle1Style}"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="ItemTmpl">
+        <DataTemplate x:Key="MovieCellTemplate">
             <Grid  Grid.Row="1" HorizontalAlignment="Left" Height="133" Margin="10,10,0,0" VerticalAlignment="Top" Width="460">
-                <Image   Source="{Binding Thumbnail}" HorizontalAlignment="Left" Margin="10,0,0,33" Width="81"/>
+                <Image   Source="{Binding PosterThumbnail}" HorizontalAlignment="Left" Margin="10,0,0,33" Width="81"/>
                 <TextBlock Text="{Binding Title}" HorizontalAlignment="Left" Height="33" Margin="100,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="25"/>
                 <TextBlock Text="{Binding ShortDescription}" HorizontalAlignment="Left" Height="90" Margin="100,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301"/>
             </Grid>
