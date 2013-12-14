@@ -46,9 +46,10 @@ namespace Theatre
             VoteCount = SomeMovie.count_vote;
             IMDB = SomeMovie.imdb;
             Sessions = new List<Session>();
-            foreach (Session Item in SomeMovie.sessions)
+            //Sessions2ParseTickets(
+            foreach (SessionResponse Item in SomeMovie.sessions)
             {
-                Sessions.Add(Item);
+                Sessions.Add(new Session(Item));
             }
             ShortDescription = "Рейтинг: " + Rating;
         }

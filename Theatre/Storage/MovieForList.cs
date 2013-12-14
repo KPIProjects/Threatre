@@ -62,7 +62,7 @@ namespace Theatre
         public string imdb;
 
         [DataMember]
-        public List<Session> sessions;
+        public List<SessionResponse> sessions;
 
         [DataMember]
         public string s_on;
