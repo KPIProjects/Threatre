@@ -48,49 +48,45 @@ namespace Theatre
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 Original.Text = movie.Title;
-                /*
+                
                 // Genres //
                 Genre.Text = "";
-                if (data.actors.Count > 0)
+                for (int i = 0; i < movie.Genres.Count; i++)
                 {
-                    for (int i = 0; i < data.genres.Count; i++)
-                    {
-                        Genre.Text += data.genres[i].name;
-                        if (i < data.genres.Count - 1) Genre.Text += ", ";
-                    }
+                    Genre.Text += movie.Genres[i];
+                    if (i < movie.Genres.Count - 1) Genre.Text += ", ";
                 }
 
                 // Description //
-                Description.Text = data.overview;
+                //Description.Text = data.overview;
 
                 // Release date //
-                if (data.release_date != "")
-                    Date.Text = "Премьера: " + data.release_date;
+                if (movie.ReleaseDate != null)
+                    Date.Text = "Премьера: " + movie.ReleaseDate;
                 else
-                    Date.Text = "Премьера: N/A";
-
-                // Companies //
-                Director.Text = "";
-                if (data.production_companies.Count > 0)
                 {
-                    for (int i = 0; i < data.production_companies.Count; i++)
+                    if (movie.Rating != null)
                     {
-                        Director.Text += data.production_companies[i].name;
-                        if (i < data.production_companies.Count - 1) Director.Text += ", ";
+                        Date.Text = "Рейтинг: " + movie.Rating;
                     }
                 }
 
+                // Companies //
+                Director.Text = "";
+                for (int i = 0; i < movie.Directors.Count; i++)
+                {
+                    Director.Text += movie.Directors.Keys.ElementAt(i);
+                    if (i < movie.Directors.Count - 1) Director.Text += ", ";
+                }
+
                 // Countries //
-                if (data.production_countries.Count > 0)
-                    Country.Text = "Страна: " + data.production_countries[0].name;
+                if (movie.Countries.Count > 0)
+                    Country.Text = "Страна: " + movie.Countries[0];
                 else
                     Country.Text = "Страна: N/A";
-
+                /*
                 // Budget //
-                if (data.budget != "0")
-                    Budget.Text = "Бюджет: " + data.budget;
-                else
-                    Budget.Text = "Бюджет: N/A";
+                
                 */
                 Image.Source = movie.PosterThumbnail;
                 ContentPanel_Content.Visibility = Visibility.Visible; //VISIBLE!

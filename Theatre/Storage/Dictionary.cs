@@ -8,7 +8,7 @@ namespace Theatre
     /// список фильмов на странице, хеш.
     /// </summary>
     [DataContract]
-    public class Dictionary<T>
+    public class KinoafishaResponse<T>
     {
         [DataMember]
         public string success;

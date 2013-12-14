@@ -11,7 +11,6 @@ namespace Theatre
     public class Storage
     {
         public string url = "http://kinoafisha.ua";
-        //public string api_key = "api_key=094e4bb3d3ab45a67d695ba730de8393";
 
         public List<Movie> NowMovies;
         public List<Movie> UpcomingMovies;
@@ -32,25 +31,16 @@ namespace Theatre
             }
         }
 
-        public static Dictionary<T> ParsePage<T>(String toParse)
+        public static KinoafishaResponse<T> ParsePage<T>(String toParse)
         {
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Dictionary<T>));
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(KinoafishaResponse<T>));
 
             MemoryStream stream1 = new MemoryStream(Encoding.UTF8.GetBytes(toParse));
 
-            Dictionary<T> result = (Dictionary<T>)ser.ReadObject(stream1);
+            KinoafishaResponse<T> result = (KinoafishaResponse<T>)ser.ReadObject(stream1);
             return result;
         }
 
-        /*public static Movie ParseMovie(String toParse)
-        {
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Movie));
-
-            MemoryStream stream1 = new MemoryStream(Encoding.UTF8.GetBytes(toParse));
-
-            Movie result = (Movie)ser.ReadObject(stream1);
-            return result;
-        }*/
 
         /// <summary>
         /// Запрос идущих в кинотеатрах фильмов, разделеных по страницам
@@ -88,7 +78,7 @@ namespace Theatre
                         Stream streamResponse = response.GetResponseStream();
                         StreamReader streamRead = new StreamReader(streamResponse);
                         String responseContent = streamRead.ReadToEnd();
-                        Dictionary<NowMovie> NowPlaying = ParsePage<NowMovie>(responseContent);
+                        KinoafishaResponse<NowMovie> NowPlaying = ParsePage<NowMovie>(responseContent);
 
                         foreach (NowMovie Item in NowPlaying.result)
                         {
@@ -129,7 +119,7 @@ namespace Theatre
                     Stream streamResponse = response.GetResponseStream();
                     StreamReader streamRead = new StreamReader(streamResponse);
                     String responseContent = streamRead.ReadToEnd();
-                    Dictionary<UpcomingMovie> Anounces = ParsePage<UpcomingMovie>(responseContent);
+                    KinoafishaResponse<UpcomingMovie> Anounces = ParsePage<UpcomingMovie>(responseContent);
 
                     foreach (UpcomingMovie Item in Anounces.result)
                     {
