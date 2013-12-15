@@ -23,12 +23,12 @@ namespace Theatre
 
         private void NowButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/XAMLs/Now.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/UI/Now.xaml", UriKind.Relative));
         }
 
         private void SoonButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/XAMLs/Soon.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/UI/Soon.xaml", UriKind.Relative));
         }
     }
 }

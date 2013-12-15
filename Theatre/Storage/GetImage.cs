@@ -28,7 +28,6 @@ namespace Theatre
                     {
                         using (BinaryReader br = new BinaryReader(stream))
                         {
-                            //i = (int)(stream.Length);
                             data = br.ReadBytes(5000000);
                             br.Close();
                         }
