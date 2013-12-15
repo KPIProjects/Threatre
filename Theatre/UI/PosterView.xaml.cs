@@ -29,13 +29,7 @@ namespace Theatre.UI
 
                     Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
-                        //Create image out of bytes
-                        System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
-                        MemoryStream ms = new MemoryStream(img);
-                        bitmapImage.SetSource(ms);
-
-                        //Set image if you desire
-                        Image.Source = bitmapImage;
+                        Image.Source = img;
                         ContentPanel_Loading.Visibility = Visibility.Collapsed; //HIDDEN!
                     });
                 });

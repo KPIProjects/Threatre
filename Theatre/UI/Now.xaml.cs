@@ -44,9 +44,7 @@ namespace Theatre.UI
                         {
                             if (img != null)
                             {
-                                data[idx].PosterThumbnail = new System.Windows.Media.Imaging.BitmapImage();
-                                MemoryStream ms = new MemoryStream(img);
-                                data[idx].PosterThumbnail.SetSource(ms);
+                                data[idx].PosterThumbnail = img;
                                 newMovies.Add(data[idx]);
                             }
 
