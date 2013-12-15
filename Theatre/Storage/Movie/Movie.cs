@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Runtime.Serialization;
-//using System.Windows.Media.Imaging;
+using Theatre.Storage.Session;
 
 namespace Theatre.Storage.Movies
 {
@@ -42,7 +42,7 @@ namespace Theatre.Storage.Movies
         public string Rating { get; set; }
         public string VoteCount { get; set; }
         public string IMDB { get; set; }
-        public List<Session> Sessions;
+        public List<SessionInCinema> Sessions;
         ////////////////////////////
 
         ///// for UpcomingMovie ////

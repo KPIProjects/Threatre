@@ -99,6 +99,8 @@
     <Compile Include="Storage\Movie\MovieKinoafishaCreator.cs" />
     <Compile Include="Storage\Movie\MovieKinoafishaNowCreator.cs" />
     <Compile Include="Storage\Movie\MovieKinoafishaUpcomingCreator.cs" />
+    <Compile Include="Storage\Session\SessionKinoafishaCreator.cs" />
+    <Compile Include="Storage\Session\SessionKinoafishaResponse.cs" />
     <Compile Include="Storage\Storage\StorageDataSource.cs" />
     <Compile Include="Storage\Dictionary.cs" />
     <Compile Include="Storage\GetImage.cs" />

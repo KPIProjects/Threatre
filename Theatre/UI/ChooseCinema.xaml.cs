@@ -10,12 +10,13 @@ using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
 using Theatre.Storage;
 using Theatre.Storage.Movies;
+using Theatre.Storage.Session;
 
 namespace Theatre.UI
 {
     public partial class ChooseCinema : PhoneApplicationPage
     {
-        private ObservableCollection<ObservableCollection<Session>> lst = new ObservableCollection<ObservableCollection<Session>>();
+        private ObservableCollection<ObservableCollection<SessionInCinema>> lst = new ObservableCollection<ObservableCollection<SessionInCinema>>();
         public ChooseCinema()
         {
             InitializeComponent();
@@ -38,8 +39,8 @@ namespace Theatre.UI
         private void UpdateViewWithData(Movie movie)
         {
             this.movie = movie;
-            lst.Add(new ObservableCollection<Session>());
-            foreach (Session session in movie.Sessions)
+            lst.Add(new ObservableCollection<SessionInCinema>());
+            foreach (SessionInCinema session in movie.Sessions)
             {
                 lst[0].Add(session);
             }
@@ -49,7 +50,7 @@ namespace Theatre.UI
 
         void LongList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Session selected = (Session)LongList.SelectedItem;
+            SessionInCinema selected = (SessionInCinema)LongList.SelectedItem;
             int indx = this.movie.Sessions.IndexOf(selected);
             NavigationService.Navigate(new Uri("/UI/ChooseSession.xaml?movieIdx=" + movieIdx + "&sessionIdx=" + indx, UriKind.Relative));
         }

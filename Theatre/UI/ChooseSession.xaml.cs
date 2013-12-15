@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Threading;
 using Theatre.Storage;
 using Theatre.Storage.Movies;
+using Theatre.Storage.Session;
 
 namespace Theatre.UI
 {
@@ -41,8 +42,8 @@ namespace Theatre.UI
             }
         }
 
-        private Session session = null;
-        private void UpdateViewWithData(Session session)
+        private SessionInCinema session = null;
+        private void UpdateViewWithData(SessionInCinema session)
         {
             Name.Text = session.CinemaName;
             Phone.Text = session.CinemaPhone;

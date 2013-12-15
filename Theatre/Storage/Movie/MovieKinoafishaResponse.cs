@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Theatre.Storage.Session;
 
 namespace Theatre.Storage.Movies
 {
