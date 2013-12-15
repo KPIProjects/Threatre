@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Theatre.Storage;
+using Theatre.Storage.Movies;
 
-namespace Theatre
+namespace Theatre.Storage
 {
     public abstract class StorageDataSource
     {

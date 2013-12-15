@@ -5,8 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using Theatre.Storage.Movies;
 
-namespace Theatre
+namespace Theatre.Storage
 {
     class KinoafishaDataSource : StorageDataSource
     {
@@ -63,7 +64,7 @@ namespace Theatre
 
                     foreach (NowMovie Item in NowPlaying.result)
                     {
-                        NowMovies.Add(new Movie(Item));
+                        NowMovies.Add(MovieKinoafishaNowCreator.CreateMovie(Item));
                     }
 
                     callback(NowMovies);
@@ -104,7 +105,7 @@ namespace Theatre
 
                     foreach (UpcomingMovie Item in Anounces.result)
                     {
-                        UpcomingMovies.Add(new Movie(Item));
+                        UpcomingMovies.Add(MovieKinoafishaUpcomingCreator.CreateMovie(Item));
                     }
 
                     callback(UpcomingMovies);

@@ -5,10 +5,11 @@ using System.Net;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Collections;
+using Theatre.Storage.Movies;
 
-namespace Theatre
+namespace Theatre.Storage
 {
-    public class Storage
+    public class DataStorage
     {
 
         public List<Movie> NowMovies { get { return DataSource.NowMovies; } }
@@ -24,18 +25,18 @@ namespace Theatre
             DataSource.GetUpcoming(onpage, callback);
         }
 
-        private static Storage instance;
+        private static DataStorage instance;
         public StorageDataSource DataSource;
 
-        private Storage() { }
+        private DataStorage() { }
 
-        public static Storage Instance
+        public static DataStorage Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new Storage();
+                    instance = new DataStorage();
                     instance.DataSource = new KinoafishaDataSource();
                 }
                 return instance;

@@ -88,7 +88,6 @@ namespace Theatre
 
         public Session(SessionResponse KinoafishaResponse)
         {
-            //CinemaPhone = "+380930164207";
             CinemaName = KinoafishaResponse.k_name;
             CinemaURL = "http://kinoafisha.ua" + KinoafishaResponse.k_url;
             Halls = new List<Hall>();

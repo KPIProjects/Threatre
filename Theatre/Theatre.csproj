@@ -96,34 +96,37 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Storage\StorageDataSource.cs" />
+    <Compile Include="Storage\Movie\MovieKinoafishaCreator.cs" />
+    <Compile Include="Storage\Movie\MovieKinoafishaNowCreator.cs" />
+    <Compile Include="Storage\Movie\MovieKinoafishaUpcomingCreator.cs" />
+    <Compile Include="Storage\Storage\StorageDataSource.cs" />
     <Compile Include="Storage\Dictionary.cs" />
     <Compile Include="Storage\GetImage.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Storage\KinoafishaDataSource.cs" />
-    <Compile Include="Storage\Movie.cs" />
-    <Compile Include="Storage\MovieForList.cs" />
-    <Compile Include="Storage\Session.cs" />
-    <Compile Include="XAMLs\ChooseCinema.xaml.cs">
+    <Compile Include="Storage\Storage\KinoafishaDataSource.cs" />
+    <Compile Include="Storage\Movie\Movie.cs" />
+    <Compile Include="Storage\Movie\MovieKinoafishaResponse.cs" />
+    <Compile Include="Storage\Session\Session.cs" />
+    <Compile Include="UI\ChooseCinema.xaml.cs">
       <DependentUpon>ChooseCinema.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLs\ChooseSession.xaml.cs">
+    <Compile Include="UI\ChooseSession.xaml.cs">
       <DependentUpon>ChooseSession.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLs\Now.xaml.cs">
+    <Compile Include="UI\Now.xaml.cs">
       <DependentUpon>Now.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XAMLs\MoviePage.xaml.cs">
+    <Compile Include="UI\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Storage\Storage.cs" />
-    <Compile Include="XAMLs\PosterView.xaml.cs">
+    <Compile Include="Storage\Storage\DataStorage.cs" />
+    <Compile Include="UI\PosterView.xaml.cs">
       <DependentUpon>PosterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLs\Soon.xaml.cs">
+    <Compile Include="UI\Soon.xaml.cs">
       <DependentUpon>Soon.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -136,27 +139,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="XAMLs\ChooseCinema.xaml">
+    <Page Include="UI\ChooseCinema.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="XAMLs\ChooseSession.xaml">
+    <Page Include="UI\ChooseSession.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="XAMLs\Now.xaml">
+    <Page Include="UI\Now.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLs\MoviePage.xaml">
+    <Page Include="UI\MoviePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLs\PosterView.xaml">
+    <Page Include="UI\PosterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="XAMLs\Soon.xaml">
+    <Page Include="UI\Soon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

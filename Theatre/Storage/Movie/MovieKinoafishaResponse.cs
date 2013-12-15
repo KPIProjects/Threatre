@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Theatre
+namespace Theatre.Storage.Movies
 {
     [DataContract]
-    public class MovieForList
+    public class MovieKinoafishaResponse
     {
         [DataMember]
         public string id;
@@ -50,7 +50,7 @@ namespace Theatre
     }
 
     [DataContract]
-    public class NowMovie: MovieForList
+    public class NowMovie : MovieKinoafishaResponse
     {
         [DataMember]
         public string vote;
@@ -72,7 +72,7 @@ namespace Theatre
     }
 
     [DataContract]
-    public class UpcomingMovie : MovieForList
+    public class UpcomingMovie : MovieKinoafishaResponse
     {
         [DataMember]
         public string sess_has;
