@@ -27,7 +27,7 @@ namespace Theatre.XAMLs
         {
             base.OnNavigatedTo(e);
 
-            if (NavigationContext.QueryString.ContainsKey("movieIdx") && NavigationContext.QueryString.ContainsKey("sessionIdx"))
+            if (NavigationContext.QueryString.ContainsKey("movieIdx") && NavigationContext.QueryString.ContainsKey("sessionIdx") && session == null)
             {
                 int movieIdx = 0;
                 int.TryParse(NavigationContext.QueryString["movieIdx"].ToString(), out movieIdx);
@@ -39,7 +39,7 @@ namespace Theatre.XAMLs
             }
         }
 
-        private Session session;
+        private Session session = null;
         private void UpdateViewWithData(Session session)
         {
             Name.Text = session.CinemaName;
@@ -81,7 +81,7 @@ namespace Theatre.XAMLs
         }
 
 
-        private void PhoneButton_Tap(object sender, RoutedEventArgs e)
+        private void PhoneButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             if (session.CinemaPhone != "")
             {
@@ -94,7 +94,7 @@ namespace Theatre.XAMLs
             }
         }
 
-        private void MapButton_Tap(object sender, RoutedEventArgs e)
+        private void MapButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("uk");
             BingMapsTask bingMapsTask = new BingMapsTask();
