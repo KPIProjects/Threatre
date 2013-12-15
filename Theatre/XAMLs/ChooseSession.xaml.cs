@@ -9,12 +9,14 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Tasks;
+using System.Globalization;
+using System.Threading;
 
 namespace Theatre.XAMLs
 {
     public partial class ChooseSession : PhoneApplicationPage
     {
-        private ObservableCollection<ObservableCollection<SimpleSession>> lst = new ObservableCollection<ObservableCollection<SimpleSession>>();
+        private ObservableCollection<KeyedList<string, SimpleSession>> lst = new ObservableCollection<KeyedList<string, SimpleSession>>();
         public ChooseSession()
         {
             InitializeComponent();
@@ -45,11 +47,11 @@ namespace Theatre.XAMLs
             Adress.Text = session.CinemaAdress;
             foreach (Hall hall in session.Halls)
             {
-                lst.Add(new ObservableCollection<SimpleSession>());
-                foreach (SimpleSession simpleSession in hall.Sessions)
+                lst.Add(new KeyedList<string, SimpleSession>(hall.Name, hall.Sessions));
+                /*foreach (SimpleSession simpleSession in hall.Sessions)
                 {
                     lst[0].Add(simpleSession);
-                }
+                }*/
             }
             LongList.Tap += LongList_Tap;
         }
@@ -94,6 +96,7 @@ namespace Theatre.XAMLs
 
         private void MapButton_Tap(object sender, RoutedEventArgs e)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("uk");
             BingMapsTask bingMapsTask = new BingMapsTask();
 
             bingMapsTask.SearchTerm = session.CinemaAdress;
@@ -102,5 +105,22 @@ namespace Theatre.XAMLs
             bingMapsTask.Show();
         }
 
+    }
+
+    public class KeyedList<TKey, TItem> : List<TItem>
+    {
+        public TKey Key { protected set; get; }
+
+        public KeyedList(TKey key, IEnumerable<TItem> items)
+            : base(items)
+        {
+            Key = key;
+        }
+
+        public KeyedList(IGrouping<TKey, TItem> grouping)
+            : base(grouping)
+        {
+            Key = grouping.Key;
+        }
     }
 }

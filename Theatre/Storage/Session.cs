@@ -163,6 +163,8 @@ namespace Theatre
             else if (ToParse.IndexOf("<a href=") != -1)
             {
                 string[] sessions = parseString.Replace("<a href=\"javascript:void(0)\" title=\"Купить билеты он-лайн\" onclick=\"_gaq.push(['_trackEvent', 'Время сеанса', '2show']); show2_show(28,[['exclusive_show','","").
+                                                Replace("<span class=\"event\">", "").
+                                                Replace("</span>", "\r").
                                                 Replace("'],['provider','","\0").
                                                 Replace("'],['event_origin','","\n").
                                                 Replace("']]);\" class=\"activeEvent\">","\t").
@@ -170,31 +172,33 @@ namespace Theatre
 
                 for (int i = 0; i < sessions.Length - 1; i++)
                 {
-                    if (sessions[i].IndexOf("<span") != -1)
+                    if (sessions[i].IndexOf("\r") != -1)
                     {
-                        string[] spanParts = sessions[i].Replace("<span class=\"event\">","").Replace("</span>", "\r").Split('\r');
+                        string[] spanParts = sessions[i].Split('\r');
                         string leaveTime = spanParts[0];
-                        sessions[i] = spanParts[1];
+                        sessions[i] = sessions[i].Substring(leaveTime.Length+1,sessions[i].Length-leaveTime.Length-1);
                         SimpleSession spanSession = new SimpleSession();
                         spanSession.Time = leaveTime;
                         spanSession.Status = "Покупка невозможна";
                         result.Add(spanSession);
                         i--;
-                        continue;
                     }
-                    string[] parts = sessions[i].Split('\0');
-                    string movieName = parts[0];
-                    parts = parts[1].Split('\n');
-                    string provider = parts[0];
-                    parts = parts[1].Split('\t');
-                    string eventOrigin = parts[0];
-                    string time = parts[1];
-                    string link = "http://wg.2show.com.ua/picker/widget?partner_site=http://kinoafisha.ua&partner_id=28&exclusive_show="+movieName+"&provider="+provider+"&event_origin="+eventOrigin+"&use_method=infront";
-                    SimpleSession session = new SimpleSession();
-                    session.Time = time;
-                    session.URL = link;
-                    session.Status = "Выбрать места";
-                    result.Add(session);
+                    else
+                    {
+                        string[] parts = sessions[i].Split('\0');
+                        string movieName = parts[0];
+                        parts = parts[1].Split('\n');
+                        string provider = parts[0];
+                        parts = parts[1].Split('\t');
+                        string eventOrigin = parts[0];
+                        string time = parts[1];
+                        string link = "http://wg.2show.com.ua/picker/widget?partner_site=http://kinoafisha.ua&partner_id=28&exclusive_show=" + movieName + "&provider=" + provider + "&event_origin=" + eventOrigin + "&use_method=infront";
+                        SimpleSession session = new SimpleSession();
+                        session.Time = time;
+                        session.URL = link;
+                        session.Status = "Выбрать места";
+                        result.Add(session);
+                    }
                 }
             }
             else

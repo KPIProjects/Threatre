@@ -8,7 +8,7 @@
     <!--Ресурсы приложения-->
     <Application.Resources>
         <DataTemplate x:Key="GroupHeader">
-            <Border Background="{StaticResource PhoneAccentBrush}" Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="{StaticResource PhoneTouchTargetOverhang}">
+            <Border Background="{StaticResource PhoneAccentBrush}" Padding="{StaticResource PhoneTouchTargetOverhang}">
                 <TextBlock Text="{Binding Key}"/>
             </Border>
         </DataTemplate>
@@ -42,7 +42,7 @@
             <Grid  Grid.Row="1" HorizontalAlignment="Left" Height="70" Margin="0,0,0,0" VerticalAlignment="Top" Width="460">
                 <TextBlock Text="{Binding Time}" HorizontalAlignment="Left" Height="30" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="25"/>
                 <TextBlock Text="{Binding In3DText}" HorizontalAlignment="Left" Height="30" Margin="430,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="25"/>
-                <TextBlock Text="{Binding Status}" HorizontalAlignment="Left" Height="20" Margin="0,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="18"/>
+                <TextBlock Text="{Binding Status}" HorizontalAlignment="Left" Height="30" Margin="0,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="18"/>
             </Grid>
         </DataTemplate>
     </Application.Resources>
