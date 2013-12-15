@@ -89,6 +89,12 @@
     <Compile Include="Storage\Movie.cs" />
     <Compile Include="Storage\MovieForList.cs" />
     <Compile Include="Storage\Session.cs" />
+    <Compile Include="XAMLs\ChooseCinema.xaml.cs">
+      <DependentUpon>ChooseCinema.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLs\ChooseSession.xaml.cs">
+      <DependentUpon>ChooseSession.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLs\LLData.cs" />
     <Compile Include="XAMLs\Now.xaml.cs">
       <DependentUpon>Now.xaml</DependentUpon>
@@ -111,6 +117,14 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLs\ChooseCinema.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLs\ChooseSession.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

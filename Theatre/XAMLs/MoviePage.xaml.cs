@@ -25,17 +25,17 @@ namespace Theatre
 
             if (NavigationContext.QueryString.ContainsKey("idx") && NavigationContext.QueryString.ContainsKey("type"))
             {
-                int idx = 0;
-                int.TryParse(NavigationContext.QueryString["idx"].ToString(), out idx);
-                string type = NavigationContext.QueryString["type"].ToString();
+                int.TryParse(NavigationContext.QueryString["idx"].ToString(), out movieIdx);
+                movieType = NavigationContext.QueryString["type"].ToString();
+                
                 Movie movie = null;
-                if (type == "now")
+                if (movieType == "now")
                 {
-                    movie = Storage.Instance.NowMovies[idx];
+                    movie = Storage.Instance.NowMovies[movieIdx];
                 }
-                else if (type == "upcoming")
+                else if (movieType == "upcoming")
                 {
-                    movie = Storage.Instance.UpcomingMovies[idx];
+                    movie = Storage.Instance.UpcomingMovies[movieIdx];
                 }
                 UpdateViewWithData(movie);
             }
@@ -51,6 +51,8 @@ namespace Theatre
         }
 
         private Movie movie;
+        private string movieType;
+        private int movieIdx;
         private void UpdateViewWithData(Movie movie)
         {
             this.movie = movie;
@@ -118,6 +120,11 @@ namespace Theatre
         private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/XAMLs/PosterView.xaml?url=" + movie.PosterFullsizeURL, UriKind.Relative));
+        }
+
+        private void BuyTicketButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/XAMLs/ChooseCinema.xaml?idx=" + movieIdx.ToString(), UriKind.Relative));
         }
         
 

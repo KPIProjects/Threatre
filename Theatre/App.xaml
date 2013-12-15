@@ -25,9 +25,25 @@
 
         <DataTemplate x:Key="MovieCellTemplate">
             <Grid  Grid.Row="1" HorizontalAlignment="Left" Height="133" Margin="10,10,0,0" VerticalAlignment="Top" Width="460">
-                <Image   Source="{Binding PosterThumbnail}" HorizontalAlignment="Left" Margin="10,0,0,33" Width="81"/>
+                <Image   Source="{Binding PosterThumbnail}" HorizontalAlignment="Left" Margin="10,0,0,33" Width="80"/>
                 <TextBlock Text="{Binding Title}" HorizontalAlignment="Left" Height="33" Margin="100,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="25"/>
                 <TextBlock Text="{Binding ShortDescription}" HorizontalAlignment="Left" Height="90" Margin="100,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="301"/>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="CinemaCellTemplate">
+            <Grid  Grid.Row="1" HorizontalAlignment="Left" Height="80" Margin="0,0,0,0" VerticalAlignment="Top" Width="460">
+                <Image   Source="{Binding CinemaLogo}" HorizontalAlignment="Left" Margin="0,0,0,33" Height="40" Width="40"/>
+                <TextBlock Text="{Binding CinemaName}" HorizontalAlignment="Left" Height="30" Margin="45,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="25"/>
+                <TextBlock Text="{Binding Timesheet}" HorizontalAlignment="Left" Height="50" Margin="45,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="18"/>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="SessionCellTemplate">
+            <Grid  Grid.Row="1" HorizontalAlignment="Left" Height="70" Margin="0,0,0,0" VerticalAlignment="Top" Width="460">
+                <TextBlock Text="{Binding Time}" HorizontalAlignment="Left" Height="30" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="25"/>
+                <TextBlock Text="{Binding In3DText}" HorizontalAlignment="Left" Height="30" Margin="430,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="25"/>
+                <TextBlock Text="{Binding Status}" HorizontalAlignment="Left" Height="20" Margin="0,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="18"/>
             </Grid>
         </DataTemplate>
     </Application.Resources>

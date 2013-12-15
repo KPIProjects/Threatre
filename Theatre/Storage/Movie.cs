@@ -64,7 +64,14 @@ namespace Theatre
             //Sessions2ParseTickets(
             foreach (SessionResponse Item in SomeMovie.sessions)
             {
-                Sessions.Add(new Session(Item));
+                if (Item.k_name != null)
+                {
+                    Sessions.Add(new Session(Item));
+                }
+                else
+                {
+                    Sessions[Sessions.Count - 1].AppendResponce(Item);
+                }
             }
             ShortDescription = "Рейтинг: " + Rating;
         }
@@ -230,6 +237,10 @@ namespace Theatre
             }
             while (idx != -1);
             Description = parseDescription;
+            if (DescriptionDidUpdated != null)
+            {
+                DescriptionDidUpdated.Invoke(this, null);
+            }
         }
 
         void ParseLengthFromHTML(string html)
@@ -242,7 +253,10 @@ namespace Theatre
             string parsedLength = html.Replace("<p>Продолжительность: <span>", "\0").
                                       Replace("</span><span itemprop=\"duration\"", "\0").Split('\0')[1];
             Length = parsedLength;
-            ;
+            if (LengthDidUpdated != null)
+            {
+                LengthDidUpdated.Invoke(this, null);
+            }
         }
 
         void ParseReleaseDateFromHTML(string html)
@@ -256,7 +270,10 @@ namespace Theatre
                                      Split('\0')[1].
                                      Replace("</span></p>", "\0").Split('\0')[0];
             ReleaseDate = parsedDate;
-            ;
+            if (ReleaseDateDidUpdated != null)
+            {
+                ReleaseDateDidUpdated.Invoke(this, null);
+            }
         }
     }
 }

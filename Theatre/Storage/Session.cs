@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Theatre
@@ -58,26 +59,77 @@ namespace Theatre
         public string sessions;
     }
 
+    public class SimpleSession
+    {
+        public string Time { get; set; }
+        public string URL { get; set; }
+        public string In3DText { get; set; }
+        public string Status { get; set; }
+    }
+
+    public class Hall
+    {
+        public string Name { get; set; }
+        public bool In3D { get; set; }
+        public List<SimpleSession> Sessions { get; set; }
+    }
+
     public class Session
     {
-        public string CinemaName;
-        public string CinemaURL;
-        public string HallName;
-        public bool In3D;
-        public Dictionary<string, string> Sessions;
+        public string CinemaName { get; set; }
+        public string CinemaURL { get; set; }
+        public string CinemaPhone { get; set; }
+        public string CinemaAdress { get; set; }
+        public List<Hall> Halls { get; set; }
+        public string Timesheet { get; set; }
+        public System.Windows.Media.Imaging.BitmapImage CinemaLogo { get; set; }
+        public event EventHandler CinemaLogoDidDownload;
 
         public Session(SessionResponse response)
         {
+            //CinemaPhone = "+380930164207";
             CinemaName = response.k_name;
             CinemaURL = "http://kinoafisha.ua" + response.k_url;
-            HallName = response.h_name;
-            In3D = (response.h_is3d == "1");
-            Sessions = ParseSessions(response.sessions);
+            Halls = new List<Hall>();
+            Hall hall = new Hall();
+            hall.Name = response.h_name;
+            hall.In3D = (response.h_is3d == "1");
+            hall.Sessions = ParseSessions(response.sessions);
+            foreach (SimpleSession session in hall.Sessions)
+            {
+                session.In3DText = hall.In3D ? "3D" : "";
+            }
+            Halls.Add(hall);
+            Timesheet = "";
+            foreach (SimpleSession session in hall.Sessions)
+            {
+                Timesheet += session.Time + " ";
+            }
+            Timesheet.Remove(Timesheet.Length - 1, 1);
         }
 
-        Dictionary<string, string> ParseSessions(string ToParse)
+        public void AppendResponce(SessionResponse response)
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
+            Hall hall = new Hall();
+            hall.Name = response.h_name;
+            hall.In3D = (response.h_is3d == "1");
+            hall.Sessions = ParseSessions(response.sessions);
+            foreach (SimpleSession session in hall.Sessions)
+            {
+                session.In3DText = hall.In3D ? "3D" : "";
+            }
+            Halls.Add(hall);
+            Timesheet += "; ";
+            foreach (SimpleSession session in hall.Sessions)
+            {
+                Timesheet += session.Time + " ";
+            }
+            Timesheet.Remove(Timesheet.Length - 1, 1);
+        }
+
+        List<SimpleSession> ParseSessions(string ToParse)
+        {
+            List<SimpleSession> result = new List<SimpleSession>();
             string parseString = ToParse;
             if (ToParse.IndexOf("<a onclick=") != -1)
             {
@@ -87,7 +139,12 @@ namespace Theatre
                 for (int i = 0; i < sessions.Length - 1; i++)
                 {
                     string[] sessionData = sessions[i].Split('\n');
-                    dict.Add(sessionData[0], sessionData[1]);
+
+                    SimpleSession session = new SimpleSession();
+                    session.Time = sessionData[1];
+                    session.URL = sessionData[0];
+                    session.Status = "Выбрать места";
+                    result.Add(session);
                 }
             }
             else if (ToParse.IndexOf("<a href=") != -1)
@@ -100,6 +157,18 @@ namespace Theatre
 
                 for (int i = 0; i < sessions.Length - 1; i++)
                 {
+                    if (sessions[i].IndexOf("<span") != -1)
+                    {
+                        string[] spanParts = sessions[i].Replace("<span class=\"event\">","").Replace("</span>", "\r").Split('\r');
+                        string leaveTime = spanParts[0];
+                        sessions[i] = spanParts[1];
+                        SimpleSession spanSession = new SimpleSession();
+                        spanSession.Time = leaveTime;
+                        spanSession.Status = "Покупка невозможна";
+                        result.Add(spanSession);
+                        i--;
+                        continue;
+                    }
                     string[] parts = sessions[i].Split('\0');
                     string movieName = parts[0];
                     parts = parts[1].Split('\n');
@@ -108,7 +177,11 @@ namespace Theatre
                     string eventOrigin = parts[0];
                     string time = parts[1];
                     string link = "http://wg.2show.com.ua/picker/widget?partner_site=http://kinoafisha.ua&partner_id=28&exclusive_show="+movieName+"&provider="+provider+"&event_origin="+eventOrigin+"&use_method=infront";
-                    dict.Add(time, link);
+                    SimpleSession session = new SimpleSession();
+                    session.Time = time;
+                    session.URL = link;
+                    session.Status = "Выбрать места";
+                    result.Add(session);
                 }
             }
             else
@@ -116,10 +189,22 @@ namespace Theatre
                 string[] sessions = parseString.Replace("<span class=\"event\">", "").Replace("</span>", "\0").Split('\0');
                 for (int i = 0; i < sessions.Length - 1; i++)
                 {
-                    dict.Add(sessions[i], "");
+                    SimpleSession session = new SimpleSession();
+                    session.Time = sessions[i];
+                    session.URL = "Phone";
+                    session.Status = "Забронировать по телефону";
+                    result.Add(session);
                 }
             }
-            return dict;
+            return result;
+        }
+
+        void DownloadLogo()
+        {
+            if (CinemaLogoDidDownload != null)
+            {
+                CinemaLogoDidDownload.Invoke(this, null);
+            }
         }
     }
 }
