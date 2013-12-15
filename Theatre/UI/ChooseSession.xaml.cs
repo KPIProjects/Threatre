@@ -36,7 +36,7 @@ namespace Theatre.UI
                 int.TryParse(NavigationContext.QueryString["movieIdx"].ToString(), out movieIdx);
                 int sessionIdx = 0;
                 int.TryParse(NavigationContext.QueryString["sessionIdx"].ToString(), out sessionIdx);
-                Movie movie = DataStorage.Instance.NowMovies[movieIdx];
+                Movie movie = AppSettings.Instance.Storage.NowMovies[movieIdx];
                 this.session = movie.Sessions[sessionIdx];
                 UpdateViewWithData(session);
             }

@@ -25,7 +25,7 @@ namespace Theatre.UI
             InitializeComponent();
             ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
             LongList.ItemsSource = lst;
-            DataStorage.Instance.GetNowPlaying(1, UpdateViewWithData, "kiev", new DateTime(), "null");
+            AppSettings.Instance.Storage.GetNowPlaying(1, UpdateViewWithData, new DateTime(), "null");
         }
 
         private void UpdateViewWithData(List<Movie> data)
@@ -76,7 +76,7 @@ namespace Theatre.UI
         void LongList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             Movie selected = (Movie)LongList.SelectedItem;
-            int indx = DataStorage.Instance.NowMovies.IndexOf(selected);
+            int indx = AppSettings.Instance.Storage.NowMovies.IndexOf(selected);
             NavigationService.Navigate(new Uri("/UI/MoviePage.xaml?idx=" + indx + "&type=now", UriKind.Relative));
         }
 
@@ -89,7 +89,7 @@ namespace Theatre.UI
                 {
                     canAddImages = false;
                     visiblePages++;
-                    DataStorage.Instance.GetNowPlaying(visiblePages, UpdateViewWithData, "kiev", new DateTime(), "null");
+                    AppSettings.Instance.Storage.GetNowPlaying(visiblePages, UpdateViewWithData, new DateTime(), "null");
                 }
             }
         }

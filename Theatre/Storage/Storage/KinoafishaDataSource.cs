@@ -32,8 +32,7 @@ namespace Theatre.Storage
         /// <param name="city">Город, в котором пользователь собирается смотреть фильм</param>
         /// <param name="ondate">Дата просмотра</param>
         /// <param name="kinoteatr">Кинотеатр, в котором пользователь собирается смотреть фильм</param>
-        public override void GetNowPlaying(int onpage = 1, Action<List<Movie>> callback = null,
-            string city = "kiev", DateTime ondate = new DateTime(), string cinema = "null")
+        public override void GetNowPlaying(int onpage = 1, Action<List<Movie>> callback = null, DateTime ondate = new DateTime(), string cinema = "null")
         {
             if (onpage == 1) { NowMovies = new List<Movie>(); }
 
@@ -44,7 +43,7 @@ namespace Theatre.Storage
             var request = WebRequest.CreateHttp(url + "/ajax/kinoafisha_load");
             request.Method = "POST";
             UTF8Encoding encoding = new UTF8Encoding();
-            var bytes = encoding.GetBytes("city=" + city + "&date=" + date.ToString() + "&kinoteatr=" + cinema +
+            var bytes = encoding.GetBytes("city=" + AppSettings.Instance.UserCity + "&date=" + date.ToString() + "&kinoteatr=" + cinema +
                 "&offset=" + (onpage * 10 - 10).ToString() + "&limit=10");
 
             request.ContentType = "application/x-www-form-urlencoded";

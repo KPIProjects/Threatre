@@ -124,7 +124,7 @@
     <Compile Include="UI\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Storage\Storage\DataStorage.cs" />
+    <Compile Include="Storage\AppSettings.cs" />
     <Compile Include="UI\PosterView.xaml.cs">
       <DependentUpon>PosterView.xaml</DependentUpon>
     </Compile>

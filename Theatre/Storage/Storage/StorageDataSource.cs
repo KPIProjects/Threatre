@@ -9,8 +9,7 @@ namespace Theatre.Storage
 {
     public abstract class StorageDataSource
     {
-        public abstract void GetNowPlaying(int onpage = 1, Action<List<Movie>> callback = null,
-            string city = "kiev", DateTime ondate = new DateTime(), string cinema = "null");
+        public abstract void GetNowPlaying(int onpage = 1, Action<List<Movie>> callback = null, DateTime ondate = new DateTime(), string cinema = "null");
         public abstract void GetUpcoming(int onpage = 1, Action<List<Movie>> callback = null);
 
         public List<Movie> NowMovies;

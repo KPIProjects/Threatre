@@ -25,7 +25,7 @@ namespace Theatre.UI
             InitializeComponent();
             ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
             LongList.ItemsSource = lst;
-            DataStorage.Instance.GetUpcoming(1, UpdateViewWithData);
+            AppSettings.Instance.Storage.GetUpcoming(1, UpdateViewWithData);
         }
 
         private void UpdateViewWithData(List<Movie> data)
@@ -77,7 +77,7 @@ namespace Theatre.UI
         void LongList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             Movie selected = (Movie)LongList.SelectedItem;
-            int indx = DataStorage.Instance.UpcomingMovies.IndexOf(selected);
+            int indx = AppSettings.Instance.Storage.UpcomingMovies.IndexOf(selected);
             NavigationService.Navigate(new Uri("/UI/MoviePage.xaml?idx=" + indx + "&type=upcoming", UriKind.Relative));
         }
 
@@ -90,7 +90,7 @@ namespace Theatre.UI
                 {
                     canAddImages = false;
                     visiblePages++;
-                    DataStorage.Instance.GetUpcoming(visiblePages, UpdateViewWithData);
+                    AppSettings.Instance.Storage.GetUpcoming(visiblePages, UpdateViewWithData);
                 }
             }
         }

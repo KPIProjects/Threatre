@@ -29,7 +29,7 @@ namespace Theatre.UI
             if (NavigationContext.QueryString.ContainsKey("idx") && movie == null)
             {
                 int.TryParse(NavigationContext.QueryString["idx"].ToString(), out movieIdx);
-                movie = DataStorage.Instance.NowMovies[movieIdx];
+                movie = AppSettings.Instance.Storage.NowMovies[movieIdx];
                 UpdateViewWithData(movie);
             }
         }

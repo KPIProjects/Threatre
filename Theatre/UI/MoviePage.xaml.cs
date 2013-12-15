@@ -33,11 +33,11 @@ namespace Theatre.UI
                 Movie movie = null;
                 if (movieType == "now")
                 {
-                    movie = DataStorage.Instance.NowMovies[movieIdx];
+                    movie = AppSettings.Instance.Storage.NowMovies[movieIdx];
                 }
                 else if (movieType == "upcoming")
                 {
-                    movie = DataStorage.Instance.UpcomingMovies[movieIdx];
+                    movie = AppSettings.Instance.Storage.UpcomingMovies[movieIdx];
                 }
                 UpdateViewWithData(movie);
             }
