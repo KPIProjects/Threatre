@@ -24,7 +24,7 @@ namespace Theatre.UI
 
             if (NavigationContext.QueryString.ContainsKey("url"))
             {
-                GetImage.GetExternalImageBytes(NavigationContext.QueryString["url"].ToString(),0, (img,idx) =>
+                AppSettings.Instance.ImageManager.DownloadImage(NavigationContext.QueryString["url"].ToString(),(img) =>
                 {
 
                     Deployment.Current.Dispatcher.BeginInvoke(() =>

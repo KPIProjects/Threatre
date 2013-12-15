@@ -103,7 +103,6 @@
     <Compile Include="Storage\Session\SessionKinoafishaResponse.cs" />
     <Compile Include="Storage\Storage\StorageDataSource.cs" />
     <Compile Include="Storage\Dictionary.cs" />
-    <Compile Include="Storage\GetImage.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -111,6 +110,7 @@
     <Compile Include="Storage\Movie\Movie.cs" />
     <Compile Include="Storage\Movie\MovieKinoafishaResponse.cs" />
     <Compile Include="Storage\Session\Session.cs" />
+    <Compile Include="Tools\ImageManager.cs" />
     <Compile Include="UI\ChooseCinema.xaml.cs">
       <DependentUpon>ChooseCinema.xaml</DependentUpon>
     </Compile>
@@ -124,7 +124,7 @@
     <Compile Include="UI\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Storage\AppSettings.cs" />
+    <Compile Include="Tools\AppSettings.cs" />
     <Compile Include="UI\PosterView.xaml.cs">
       <DependentUpon>PosterView.xaml</DependentUpon>
     </Compile>

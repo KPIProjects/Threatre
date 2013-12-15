@@ -38,7 +38,7 @@ namespace Theatre.UI
 
                 for (int i = (visiblePages-1) * 10; i < data.Count; i++)
                 {
-                    GetImage.GetExternalImageBytes(data[i].PosterThumbnailURL, i, (img, idx) =>
+                    AppSettings.Instance.ImageManager.MovieLogoThumbnail(data[i], i, (img, idx) =>
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {

@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using System.IO;
+using System.Text;
+using Theatre.Storage.Movies;
 
 namespace Theatre
 {
-    class GetImage
+    public class ImageManager
     {
-        static public void GetExternalImageBytes(string url, int idx, Action<byte[], int> callback)
+        public void MovieLogoThumbnail(Movie movie, int index, Action<byte[], int> callback)
+        {
+            DownloadMovieLogoThumbnail(movie, index, callback);
+        }
+
+        private void DownloadMovieLogoThumbnail(Movie movie, int index, Action<byte[], int> callback)
+        {
+            DownloadImage(movie.PosterThumbnailURL, (img) =>
+            {
+                callback(img, index);
+            });
+        }
+
+        public void DownloadImage(string url, Action<byte[]> callback)
         {
             byte[] data;
             HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create(url);
@@ -34,11 +44,11 @@ namespace Theatre
                     }
                     response.Close();
 
-                    callback(data, idx);
+                    callback(data);
                 }
                 catch
                 {
-                    callback(null, idx);
+                    callback(null);
                 }
             }, null);
         }
