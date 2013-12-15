@@ -276,4 +276,20 @@ namespace Theatre
             }
         }
     }
+
+    public class ComparatorByRating : IComparer<Movie>
+    {
+        public int Compare(Movie x, Movie y)
+        {
+            return y.Rating.CompareTo(x.Rating);
+        }
+    }
+
+    public class ComparatorByReleaseDate : IComparer<Movie>
+    {
+        public int Compare(Movie x, Movie y)
+        {
+            return x.ReleaseDate.CompareTo(y.ReleaseDate);
+        }
+    }
 }

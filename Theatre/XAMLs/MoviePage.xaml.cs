@@ -130,6 +130,7 @@ namespace Theatre
         {
             NavigationService.Navigate(new Uri("/XAMLs/ChooseCinema.xaml?idx=" + movieIdx.ToString(), UriKind.Relative));
         }
+
         
 
 //Call this as following
