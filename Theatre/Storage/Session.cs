@@ -85,7 +85,6 @@ namespace Theatre
         public string CinemaAdress { get; set; }
         public List<Hall> Halls { get; set; }
         public string Timesheet { get; set; }
-        public event EventHandler CinemaLogoDidDownload;
 
         public Session(SessionResponse KinoafishaResponse)
         {
