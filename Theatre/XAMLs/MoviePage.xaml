@@ -30,14 +30,16 @@
             <Grid x:Name="ContentPanel_Copy">
                 <Grid x:Name="ContentPanel_Content">
                     <TextBlock Name="Original" HorizontalAlignment="Left" Height="50" Margin="148,0,0,0" TextWrapping="Wrap" Text="Movie name" VerticalAlignment="Top" Width="298" FontSize="40"/>
-                    <TextBlock Name="Director" FontStyle="Italic" HorizontalAlignment="Left" Height="27" Margin="10,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="436"/>
+                    <TextBlock Name="Director" Text="Director" FontStyle="Italic" HorizontalAlignment="Left" Height="27" Margin="10,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="436"/>
                     <TextBlock Name="Country" HorizontalAlignment="Left" Height="24" Margin="148,95,0,0" TextWrapping="Wrap" Text="Country: Name" VerticalAlignment="Top" Width="298"/>
                     <Image Name="Image" HorizontalAlignment="Left" Height="177" Margin="10,10,0,0" VerticalAlignment="Top" Width="119" Tap="Image_Tap"/>
                     <TextBlock Name="Date" HorizontalAlignment="Left" Height="40" Margin="148,55,0,0" TextWrapping="Wrap" Text="Date (dd/mm/yy)" VerticalAlignment="Top" Width="298" FontSize="30"/>
-                    <TextBlock Name="Description" HorizontalAlignment="Left" Height="311" Margin="10,224,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Width="436"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="311" Margin="10,227,10,96">
+                        <TextBlock Name="Description" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top"/>
+                    </ScrollViewer>
                     <TextBlock Name="Genre" HorizontalAlignment="Left" Margin="148,124,0,0" TextWrapping="NoWrap"  Text="Genre: Name" VerticalAlignment="Top" Width="298"/>
                     <TextBlock x:Name="Length" HorizontalAlignment="Left" Margin="148,156,0,0" TextWrapping="Wrap" Text="Budget: Value" VerticalAlignment="Top" Width="298"/>
-                    <Button Content="Купить билет" HorizontalAlignment="Left" Margin="10,550,0,0" VerticalAlignment="Top" Height="84" Width="436" RenderTransformOrigin="0.5,0.5" Tap="BuyTicketButton_Tap"/>
+                    <Button Name="BuyTicketButton" Content="Купить билет" HorizontalAlignment="Left" Margin="10,550,0,0" VerticalAlignment="Top" Height="84" Width="436" RenderTransformOrigin="0.5,0.5" Tap="BuyTicketButton_Tap"/>
                 </Grid>
 
                 <Grid x:Name="ContentPanel_Loading" Tap="Image_Tap">

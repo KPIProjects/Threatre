@@ -56,6 +56,10 @@ namespace Theatre
         private void UpdateViewWithData(Movie movie)
         {
             this.movie = movie;
+            if (movie.Type == MovieType.Anounce)
+            {
+                BuyTicketButton.Visibility = Visibility.Collapsed;
+            }
             this.movie.LengthDidUpdated += UpdateLength;
             this.movie.DescriptionDidUpdated += UpdateDescription;
             this.movie.ReleaseDateDidUpdated += UpdateReleaseDate;
