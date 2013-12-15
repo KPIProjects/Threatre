@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    x:Class="Theatre.Soon"
+    x:Class="Theatre.UI.Now"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -43,7 +43,7 @@
 
         <!--TitlePanel содержит имя приложения и заголовок страницы-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="СКОРО" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontWeight="Bold"/>
+            <TextBlock Text="В КИНО" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontWeight="Bold"/>
         </StackPanel>
 
         <!--ContentPanel – поместите здесь дополнительное содержимое-->

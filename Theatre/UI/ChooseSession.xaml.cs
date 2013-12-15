@@ -11,8 +11,10 @@ using System.Collections.ObjectModel;
 using Microsoft.Phone.Tasks;
 using System.Globalization;
 using System.Threading;
+using Theatre.Storage;
+using Theatre.Storage.Movies;
 
-namespace Theatre.XAMLs
+namespace Theatre.UI
 {
     public partial class ChooseSession : PhoneApplicationPage
     {
@@ -33,7 +35,7 @@ namespace Theatre.XAMLs
                 int.TryParse(NavigationContext.QueryString["movieIdx"].ToString(), out movieIdx);
                 int sessionIdx = 0;
                 int.TryParse(NavigationContext.QueryString["sessionIdx"].ToString(), out sessionIdx);
-                Movie movie = Storage.Instance.NowMovies[movieIdx];
+                Movie movie = DataStorage.Instance.NowMovies[movieIdx];
                 this.session = movie.Sessions[sessionIdx];
                 UpdateViewWithData(session);
             }

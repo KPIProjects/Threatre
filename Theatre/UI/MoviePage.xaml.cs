@@ -9,8 +9,10 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO;
 using System.ComponentModel;
+using Theatre.Storage;
+using Theatre.Storage.Movies;
 
-namespace Theatre
+namespace Theatre.UI
 {
     public partial class MoviePage : PhoneApplicationPage
     {
@@ -31,11 +33,11 @@ namespace Theatre
                 Movie movie = null;
                 if (movieType == "now")
                 {
-                    movie = Storage.Instance.NowMovies[movieIdx];
+                    movie = DataStorage.Instance.NowMovies[movieIdx];
                 }
                 else if (movieType == "upcoming")
                 {
-                    movie = Storage.Instance.UpcomingMovies[movieIdx];
+                    movie = DataStorage.Instance.UpcomingMovies[movieIdx];
                 }
                 UpdateViewWithData(movie);
             }
@@ -43,9 +45,9 @@ namespace Theatre
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
-            this.movie.LengthDidUpdated -= UpdateLength;
-            this.movie.DescriptionDidUpdated -= UpdateDescription;
-            this.movie.ReleaseDateDidUpdated -= UpdateReleaseDate;
+            this.movie.LengthDidLoadEvent -= UpdateLength;
+            this.movie.DescriptionDidLoadEvent -= UpdateDescription;
+            this.movie.ReleaseDateDidLoadEvent -= UpdateReleaseDate;
 
             base.OnBackKeyPress(e);
         }
@@ -60,9 +62,9 @@ namespace Theatre
             {
                 BuyTicketButton.Visibility = Visibility.Collapsed;
             }
-            this.movie.LengthDidUpdated += UpdateLength;
-            this.movie.DescriptionDidUpdated += UpdateDescription;
-            this.movie.ReleaseDateDidUpdated += UpdateReleaseDate;
+            this.movie.LengthDidLoadEvent += UpdateLength;
+            this.movie.DescriptionDidLoadEvent += UpdateDescription;
+            this.movie.ReleaseDateDidLoadEvent += UpdateReleaseDate;
 
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -123,18 +125,12 @@ namespace Theatre
 
         private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/XAMLs/PosterView.xaml?url=" + movie.PosterFullsizeURL, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/UI/PosterView.xaml?url=" + movie.PosterFullsizeURL, UriKind.Relative));
         }
 
         private void BuyTicketButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/XAMLs/ChooseCinema.xaml?idx=" + movieIdx.ToString(), UriKind.Relative));
+            NavigationService.Navigate(new Uri("/UI/ChooseCinema.xaml?idx=" + movieIdx.ToString(), UriKind.Relative));
         }
-
-        
-
-//Call this as following
-
-                
     }
 }

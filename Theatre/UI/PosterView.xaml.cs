@@ -9,7 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO;
 
-namespace Theatre
+namespace Theatre.UI
 {
     public partial class PosterView : PhoneApplicationPage
     {

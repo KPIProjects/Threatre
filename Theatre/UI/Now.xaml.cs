@@ -9,8 +9,10 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO;
 using System.Collections.ObjectModel;
+using Theatre.Storage;
+using Theatre.Storage.Movies;
 
-namespace Theatre
+namespace Theatre.UI
 {
     public partial class Now : PhoneApplicationPage
     {
@@ -23,7 +25,7 @@ namespace Theatre
             InitializeComponent();
             ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
             LongList.ItemsSource = lst;
-            Storage.Instance.GetNowPlaying(1, UpdateViewWithData, "kiev", new DateTime(), "null");
+            DataStorage.Instance.GetNowPlaying(1, UpdateViewWithData, "kiev", new DateTime(), "null");
         }
 
         private void UpdateViewWithData(List<Movie> data)
@@ -74,8 +76,8 @@ namespace Theatre
         void LongList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             Movie selected = (Movie)LongList.SelectedItem;
-            int indx = Storage.Instance.NowMovies.IndexOf(selected);
-            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?idx=" + indx + "&type=now", UriKind.Relative));
+            int indx = DataStorage.Instance.NowMovies.IndexOf(selected);
+            NavigationService.Navigate(new Uri("/UI/MoviePage.xaml?idx=" + indx + "&type=now", UriKind.Relative));
         }
 
         void LongList_Link(object sender, LinkUnlinkEventArgs e)
@@ -87,7 +89,7 @@ namespace Theatre
                 {
                     canAddImages = false;
                     visiblePages++;
-                    Storage.Instance.GetNowPlaying(visiblePages, UpdateViewWithData, "kiev", new DateTime(), "null");
+                    DataStorage.Instance.GetNowPlaying(visiblePages, UpdateViewWithData, "kiev", new DateTime(), "null");
                 }
             }
         }

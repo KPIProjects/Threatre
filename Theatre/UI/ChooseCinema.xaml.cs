@@ -8,8 +8,10 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
+using Theatre.Storage;
+using Theatre.Storage.Movies;
 
-namespace Theatre
+namespace Theatre.UI
 {
     public partial class ChooseCinema : PhoneApplicationPage
     {
@@ -26,7 +28,7 @@ namespace Theatre
             if (NavigationContext.QueryString.ContainsKey("idx") && movie == null)
             {
                 int.TryParse(NavigationContext.QueryString["idx"].ToString(), out movieIdx);
-                movie = Storage.Instance.NowMovies[movieIdx];
+                movie = DataStorage.Instance.NowMovies[movieIdx];
                 UpdateViewWithData(movie);
             }
         }
@@ -49,7 +51,7 @@ namespace Theatre
         {
             Session selected = (Session)LongList.SelectedItem;
             int indx = this.movie.Sessions.IndexOf(selected);
-            NavigationService.Navigate(new Uri("/XAMLs/ChooseSession.xaml?movieIdx=" + movieIdx + "&sessionIdx=" + indx, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/UI/ChooseSession.xaml?movieIdx=" + movieIdx + "&sessionIdx=" + indx, UriKind.Relative));
         }
     }
 }

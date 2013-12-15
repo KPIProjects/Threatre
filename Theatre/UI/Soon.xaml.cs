@@ -9,8 +9,10 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO;
 using System.Collections.ObjectModel;
+using Theatre.Storage;
+using Theatre.Storage.Movies;
 
-namespace Theatre
+namespace Theatre.UI
 {
     public partial class Soon : PhoneApplicationPage
     {
@@ -23,7 +25,7 @@ namespace Theatre
             InitializeComponent();
             ContentPanel_Content.Visibility = Visibility.Collapsed; //HIDDEN!
             LongList.ItemsSource = lst;
-            Storage.Instance.GetUpcoming(1, UpdateViewWithData);
+            DataStorage.Instance.GetUpcoming(1, UpdateViewWithData);
         }
 
         private void UpdateViewWithData(List<Movie> data)
@@ -75,8 +77,8 @@ namespace Theatre
         void LongList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             Movie selected = (Movie)LongList.SelectedItem;
-            int indx = Storage.Instance.UpcomingMovies.IndexOf(selected);
-            NavigationService.Navigate(new Uri("/XAMLs/MoviePage.xaml?idx=" + indx + "&type=upcoming", UriKind.Relative));
+            int indx = DataStorage.Instance.UpcomingMovies.IndexOf(selected);
+            NavigationService.Navigate(new Uri("/UI/MoviePage.xaml?idx=" + indx + "&type=upcoming", UriKind.Relative));
         }
 
         void LongList_Link(object sender, LinkUnlinkEventArgs e)
@@ -88,7 +90,7 @@ namespace Theatre
                 {
                     canAddImages = false;
                     visiblePages++;
-                    Storage.Instance.GetUpcoming(visiblePages, UpdateViewWithData);
+                    DataStorage.Instance.GetUpcoming(visiblePages, UpdateViewWithData);
                 }
             }
         }
