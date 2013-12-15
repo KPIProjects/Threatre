@@ -48,10 +48,6 @@ namespace Theatre.XAMLs
             foreach (Hall hall in session.Halls)
             {
                 lst.Add(new KeyedList<string, SimpleSession>(hall.Name, hall.Sessions));
-                /*foreach (SimpleSession simpleSession in hall.Sessions)
-                {
-                    lst[0].Add(simpleSession);
-                }*/
             }
             LongList.Tap += LongList_Tap;
         }
