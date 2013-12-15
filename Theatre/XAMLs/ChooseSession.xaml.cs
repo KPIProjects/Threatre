@@ -41,6 +41,8 @@ namespace Theatre.XAMLs
         private void UpdateViewWithData(Session session)
         {
             Name.Text = session.CinemaName;
+            Phone.Text = session.CinemaPhone;
+            Adress.Text = session.CinemaAdress;
             foreach (Hall hall in session.Halls)
             {
                 lst.Add(new ObservableCollection<SimpleSession>());
@@ -58,7 +60,7 @@ namespace Theatre.XAMLs
             SimpleSession selected = (SimpleSession)LongList.SelectedItem;
             if (selected.URL != "" && selected.URL != null)
             {
-                if (selected.URL == "Phone")
+                if (selected.URL == "Phone" && session.CinemaPhone != "")
                 {
                     PhoneCallTask phoneCallTask = new PhoneCallTask();
 
@@ -75,5 +77,30 @@ namespace Theatre.XAMLs
                 }
             }
         }
+
+
+        private void PhoneButton_Tap(object sender, RoutedEventArgs e)
+        {
+            if (session.CinemaPhone != "")
+            {
+                PhoneCallTask phoneCallTask = new PhoneCallTask();
+
+                phoneCallTask.PhoneNumber = session.CinemaPhone;
+                phoneCallTask.DisplayName = session.CinemaName;
+
+                phoneCallTask.Show();
+            }
+        }
+
+        private void MapButton_Tap(object sender, RoutedEventArgs e)
+        {
+            BingMapsTask bingMapsTask = new BingMapsTask();
+
+            bingMapsTask.SearchTerm = session.CinemaAdress;
+            bingMapsTask.ZoomLevel = 2;
+
+            bingMapsTask.Show();
+        }
+
     }
 }

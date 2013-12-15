@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Runtime.Serialization;
+using System.Windows;
 
 namespace Theatre
 {
@@ -82,19 +85,18 @@ namespace Theatre
         public string CinemaAdress { get; set; }
         public List<Hall> Halls { get; set; }
         public string Timesheet { get; set; }
-        public System.Windows.Media.Imaging.BitmapImage CinemaLogo { get; set; }
         public event EventHandler CinemaLogoDidDownload;
 
-        public Session(SessionResponse response)
+        public Session(SessionResponse KinoafishaResponse)
         {
             //CinemaPhone = "+380930164207";
-            CinemaName = response.k_name;
-            CinemaURL = "http://kinoafisha.ua" + response.k_url;
+            CinemaName = KinoafishaResponse.k_name;
+            CinemaURL = "http://kinoafisha.ua" + KinoafishaResponse.k_url;
             Halls = new List<Hall>();
             Hall hall = new Hall();
-            hall.Name = response.h_name;
-            hall.In3D = (response.h_is3d == "1");
-            hall.Sessions = ParseSessions(response.sessions);
+            hall.Name = KinoafishaResponse.h_name;
+            hall.In3D = (KinoafishaResponse.h_is3d == "1");
+            hall.Sessions = ParseSessions(KinoafishaResponse.sessions);
             foreach (SimpleSession session in hall.Sessions)
             {
                 session.In3DText = hall.In3D ? "3D" : "";
@@ -106,6 +108,17 @@ namespace Theatre
                 Timesheet += session.Time + " ";
             }
             Timesheet.Remove(Timesheet.Length - 1, 1);
+
+            var request = WebRequest.CreateHttp(CinemaURL);
+            request.Method = "GET";
+            request.BeginGetResponse(result =>
+            {
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                Stream streamResponse = response.GetResponseStream();
+                StreamReader streamRead = new StreamReader(streamResponse);
+                String responseContent = streamRead.ReadToEnd();
+                ParseCinemaHTMLPage(responseContent);
+            }, null);
         }
 
         public void AppendResponce(SessionResponse response)
@@ -199,11 +212,72 @@ namespace Theatre
             return result;
         }
 
-        void DownloadLogo()
+        
+        void ParseCinemaHTMLPage(string html)
         {
-            if (CinemaLogoDidDownload != null)
+            /*string logoURL = html.Replace("<link rel=\"image_src\" type=\"\" href=\"", "\0").Split('\0')[1];
+            logoURL = logoURL.Substring(0,logoURL.IndexOf("\" />"));
+            DownloadLogo(logoURL);*/
+            if (html.IndexOf("Телефон: <span>") != -1)
             {
-                CinemaLogoDidDownload.Invoke(this, null);
+                string phone = html.Replace("Телефон: <span>", "\0").Split('\0')[1];
+                phone = phone.Substring(0, phone.IndexOf("</span>"));
+                int openScopeIdx = -1;
+                for (int i = 0; i < 10 && openScopeIdx == - 1; i++)
+                {
+                    openScopeIdx = phone.IndexOf(i.ToString()[0]);
+                }
+                if (openScopeIdx == -1)
+                {
+                    openScopeIdx = phone.IndexOf('(');
+                }
+
+                if (openScopeIdx != -1)
+                {
+                    phone = phone.Substring(openScopeIdx, phone.Length - openScopeIdx);
+                }
+
+                phone = phone.Replace(";", ",");
+                if (phone.IndexOf(',') != -1)
+                {
+                    string[] candidats = phone.Split(',');
+                    phone = "";
+                    foreach (string candidat in candidats)
+                    {
+                        if (candidat.IndexOf("бро") != -1 && candidat.IndexOf("кас") != -1)
+                        {
+                            phone = candidat;
+                        }
+                    }
+                    if (phone == "")
+                    {
+                        phone = candidats[0];
+                    }
+                }
+                for (int i = 0; i < phone.Length; i++)
+                {
+                    if (phone[i] < '0' || phone[i] > '9')
+                    {
+                        phone = phone.Remove(i, 1);
+                        i--;
+                    }
+                }
+                CinemaPhone = phone;
+            }
+            else
+            {
+                CinemaPhone = "";
+            }
+
+            if (html.IndexOf("<p>Адрес кинотеатра: <a class=\"on-map\" href=\"#yamaps\">") != -1)
+            {
+                string adress = html.Replace("<p>Адрес кинотеатра: <a class=\"on-map\" href=\"#yamaps\">", "\0").Split('\0')[1];
+                adress = adress.Substring(0, adress.IndexOf("</a></p>"));
+                CinemaAdress = adress;
+            }
+            else
+            {
+                CinemaAdress = "";
             }
         }
     }

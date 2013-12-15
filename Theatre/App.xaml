@@ -33,9 +33,8 @@
         
         <DataTemplate x:Key="CinemaCellTemplate">
             <Grid  Grid.Row="1" HorizontalAlignment="Left" Height="80" Margin="0,0,0,0" VerticalAlignment="Top" Width="460">
-                <Image   Source="{Binding CinemaLogo}" HorizontalAlignment="Left" Margin="0,0,0,33" Height="40" Width="40"/>
-                <TextBlock Text="{Binding CinemaName}" HorizontalAlignment="Left" Height="30" Margin="45,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="25"/>
-                <TextBlock Text="{Binding Timesheet}" HorizontalAlignment="Left" Height="50" Margin="45,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="18"/>
+                <TextBlock Text="{Binding CinemaName}" HorizontalAlignment="Left" Height="30" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" FontSize="25"/>
+                <TextBlock Text="{Binding Timesheet}" HorizontalAlignment="Left" Height="50" Margin="0,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" FontSize="18"/>
             </Grid>
         </DataTemplate>
         
