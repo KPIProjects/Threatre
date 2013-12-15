@@ -23,10 +23,10 @@ namespace Theatre
         {
             base.OnNavigatedTo(e);
 
-            if (NavigationContext.QueryString.ContainsKey("idx"))
+            if (NavigationContext.QueryString.ContainsKey("idx") && movie == null)
             {
                 int.TryParse(NavigationContext.QueryString["idx"].ToString(), out movieIdx);
-                Movie movie = Storage.Instance.NowMovies[movieIdx];
+                movie = Storage.Instance.NowMovies[movieIdx];
                 UpdateViewWithData(movie);
             }
         }
