@@ -111,5 +111,11 @@ namespace Theatre.Storage
                 }, null);
             }, null);
         }
+
+
+        public override void GetExtendMovieInformation(Movie movie, Action<Movie> callback)
+        {
+            MovieKinoafishaHtmlManager.DownloadHTMLDetailsForMovie(movie, callback);
+        }
     }
 }

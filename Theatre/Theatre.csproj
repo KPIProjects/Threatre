@@ -97,6 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage\Movie\MovieKinoafishaCreator.cs" />
+    <Compile Include="Storage\Movie\MovieKinoafishaHtmlManager.cs" />
     <Compile Include="Storage\Movie\MovieKinoafishaNowCreator.cs" />
     <Compile Include="Storage\Movie\MovieKinoafishaUpcomingCreator.cs" />
     <Compile Include="Storage\Session\SessionKinoafishaCreator.cs" />
@@ -116,6 +117,9 @@
     </Compile>
     <Compile Include="UI\ChooseSession.xaml.cs">
       <DependentUpon>ChooseSession.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MoviePanoramaPage.xaml.cs">
+      <DependentUpon>MoviePanoramaPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Now.xaml.cs">
       <DependentUpon>Now.xaml</DependentUpon>
@@ -149,6 +153,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\MoviePanoramaPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Now.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -179,10 +187,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\ButtonCommentaries.png" />
+    <Content Include="Images\ButtonDescription.png" />
     <Content Include="Images\ButtonMap.png" />
     <Content Include="Images\ButtonMovie.png" />
     <Content Include="Images\ButtonPhone.png" />
     <Content Include="Images\ButtonPhoto.png" />
+    <Content Include="Images\ButtonPhotos.png" />
+    <Content Include="Images\ButtonPoster.png" />
     <Content Include="Images\ButtonTicket.png" />
     <Content Include="ReadMe.Coding4Fun.Toolkit.txt" />
     <Content Include="README_FIRST.txt" />
@@ -194,7 +205,9 @@
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UI\Controls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

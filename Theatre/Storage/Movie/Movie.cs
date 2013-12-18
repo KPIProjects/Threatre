@@ -30,7 +30,10 @@ namespace Theatre.Storage.Movies
         public string CinemaLink { get; set; }
         public MovieType Type { get; set; }
 
-        ///////// from HTML ////////
+        ///////// Extended ////////
+        public List<string> MovieImageURLs { get; set; }
+        public List<System.Windows.Media.Imaging.BitmapImage> MovieImages { get; set; }
+        public string TrailerURL { get; set; }
         public string Description { get; set; }
         public string Length { get; set; }
         public event EventHandler LengthDidLoadEvent;

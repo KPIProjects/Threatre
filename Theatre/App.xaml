@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:ctls="clr-namespace:System.Windows.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone">
 
     <!--Ресурсы приложения-->
@@ -46,6 +47,33 @@
             </Grid>
         </DataTemplate>
 
+        <DataTemplate x:Key="ImageGalleryBasketDataTemplate">
+            <Border Background="#FF939598">
+                <Image Source="{Binding Bitmap}"/>
+            </Border>
+        </DataTemplate>
+
+        <Style TargetType="ctls:HeaderedItemsControl" x:Key="HeaderedItemsControlStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ctls:HeaderedItemsControl">
+                        <Grid x:Name="Root">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <ContentControl
+                        x:Name="HeaderContent"
+                        Content="{TemplateBinding Header}"
+                        ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalContentAlignment="Stretch" />
+                            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter x:Name="Items" />
+                            </ScrollViewer>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Path x:Key="PlayIcon" Data="F1M84.127,709.4629L70.558,719.8039L70.558,699.2159z" Fill="{StaticResource PhoneForegroundBrush}" Stretch="Fill" RenderTransformOrigin="-5.643,0.412" UseLayoutRounding="False" />
         <Style x:Key="RoundButton" TargetType="Button">
