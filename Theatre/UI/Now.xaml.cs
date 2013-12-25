@@ -75,7 +75,7 @@ namespace Theatre.UI
         {
             Movie selected = (Movie)LongList.SelectedItem;
             int indx = AppSettings.Instance.Storage.NowMovies.IndexOf(selected);
-            NavigationService.Navigate(new Uri("/UI/MoviePage.xaml?idx=" + indx + "&type=now", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/UI/MoviePanoramaPage.xaml?idx=" + indx + "&type=now", UriKind.Relative));
         }
 
         void LongList_Link(object sender, LinkUnlinkEventArgs e)
